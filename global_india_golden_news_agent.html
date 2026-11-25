@@ -1,0 +1,2576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Global &amp; India Golden News Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .tab-active {
+      background-color: #1d4ed8;
+      color: #ffffff;
+    }
+    .tab-inactive {
+      background-color: transparent;
+      color: #475569;
+    }
+    .tab-inactive:hover {
+      background-color: #e2e8f0;
+      color: #0f172a;
+    }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Dark Theme Overrides */
+    html.dark body {
+      background-color: #0b1120;
+      color: #f1f5f9;
+    }
+    html.dark header,
+    html.dark .bg-white {
+      background-color: #111827 !important;
+      color: #f1f5f9;
+    }
+    html.dark .bg-slate-50,
+    html.dark .bg-slate-50\/80,
+    html.dark .bg-slate-100 {
+      background-color: #1e293b !important;
+    }
+    html.dark .border-slate-200,
+    html.dark .border-slate-200\/80,
+    html.dark .border-slate-300,
+    html.dark .border-slate-100,
+    html.dark .divide-slate-100 > * + * {
+      border-color: #293548 !important;
+    }
+    html.dark .text-slate-900 { color: #f8fafc !important; }
+    html.dark .text-slate-800 { color: #e2e8f0 !important; }
+    html.dark .text-slate-700 { color: #cbd5e1 !important; }
+    html.dark .text-slate-600 { color: #94a3b8 !important; }
+    html.dark .text-slate-500 { color: #94a3b8 !important; }
+    html.dark input,
+    html.dark select,
+    html.dark textarea {
+      background-color: #0f172a !important;
+      color: #f8fafc !important;
+      border-color: #334155 !important;
+    }
+    html.dark .tab-inactive { color: #cbd5e1; }
+    html.dark .tab-inactive:hover { background-color: #334155; color: #ffffff; }
+    html.dark .bg-blue-50,
+    html.dark .bg-blue-50\/70 {
+      background-color: rgba(37, 99, 235, 0.16) !important;
+      border-color: rgba(59, 130, 246, 0.35) !important;
+    }
+    html.dark .text-blue-900,
+    html.dark .text-blue-800,
+    html.dark .text-blue-700 { color: #93c5fd !important; }
+    html.dark .bg-emerald-50 { background-color: rgba(16, 185, 129, 0.15) !important; border-color: rgba(16, 185, 129, 0.35) !important; }
+    html.dark .text-emerald-700,
+    html.dark .text-emerald-800 { color: #6ee7b7 !important; }
+    html.dark .bg-amber-50,
+    html.dark .bg-amber-50\/30 { background-color: rgba(217, 119, 6, 0.14) !important; border-color: rgba(245, 158, 11, 0.35) !important; }
+    html.dark .text-amber-900,
+    html.dark .text-amber-800,
+    html.dark .text-amber-700 { color: #fcd34d !important; }
+    html.dark .hover\:bg-slate-50\/80:hover,
+    html.dark .hover\:bg-slate-50:hover { background-color: #1e293b !important; }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: #ffffff !important; color: #0f172a !important; }
+      .print-break-avoid { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-700 text-white flex items-center justify-center shadow-sm shrink-0">
+          <i data-lucide="newspaper" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 leading-tight">
+            Global &amp; India Golden News Agent
+          </h1>
+          <p class="text-xs text-slate-500">On-demand category news + AI verification &amp; Golden News synthesizer</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <nav class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl" aria-label="Main navigation">
+          <button id="navExtractor" type="button" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition tab-active flex items-center gap-1.5">
+            <i data-lucide="search" class="w-3.5 h-3.5"></i>
+            <span>Extractor</span>
+          </button>
+          <button id="navSources" type="button" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition tab-inactive flex items-center gap-1.5">
+            <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+            <span>Sources</span>
+          </button>
+          <button id="navHowItWorks" type="button" class="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition tab-inactive flex items-center gap-1.5">
+            <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+            <span>How It Works</span>
+          </button>
+        </nav>
+
+        <!-- Theme Switcher: Dark / Light / System -->
+        <div class="flex items-center gap-0.5 bg-slate-100 p-1 rounded-xl" role="group" aria-label="Theme switcher">
+          <button id="themeDarkBtn" type="button" title="Dark theme" class="px-2 py-1.5 rounded-lg text-xs font-semibold transition tab-inactive flex items-center gap-1">
+            <i data-lucide="moon" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Dark</span>
+          </button>
+          <button id="themeLightBtn" type="button" title="Light theme" class="px-2 py-1.5 rounded-lg text-xs font-semibold transition tab-inactive flex items-center gap-1">
+            <i data-lucide="sun" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Light</span>
+          </button>
+          <button id="themeSystemBtn" type="button" title="System theme" class="px-2 py-1.5 rounded-lg text-xs font-semibold transition tab-inactive flex items-center gap-1">
+            <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">System</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+    <!-- ==================== VIEW 1: EXTRACTOR ==================== -->
+    <section id="viewExtractor" class="space-y-6">
+      <!-- Control Panel -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-6 space-y-5 no-print">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5">
+          <!-- Category Input -->
+          <div class="md:col-span-4 space-y-1.5">
+            <label for="categoryInput" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Category / Topic
+            </label>
+            <div class="relative">
+              <i data-lucide="tag" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input
+                id="categoryInput"
+                type="text"
+                placeholder="e.g., Economy, AI &amp; Tech, Geopolitics, UPSC..."
+                class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600"
+              />
+            </div>
+          </div>
+
+          <!-- Timeframe Selector -->
+          <div class="md:col-span-2 space-y-1.5">
+            <label for="timeframeSelect" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Timeframe
+            </label>
+            <select
+              id="timeframeSelect"
+              class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+            >
+              <option value="1h">Last 1 Hour (Live)</option>
+              <option value="6h">Last 6 Hours</option>
+              <option value="1d">Last 24 Hours</option>
+              <option value="3d">Last 3 Days</option>
+              <option value="7d" selected>Last 7 Days</option>
+              <option value="30d">Last 30 Days</option>
+              <option value="custom">Custom Dates</option>
+            </select>
+          </div>
+
+          <!-- Region Scope -->
+          <div class="md:col-span-2 space-y-1.5">
+            <label for="regionSelect" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Coverage
+            </label>
+            <select
+              id="regionSelect"
+              class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+            >
+              <option value="all" selected>India + Global</option>
+              <option value="india">India Only</option>
+              <option value="global">Global Only</option>
+            </select>
+          </div>
+
+          <!-- Content Type Selector (News / Articles / Editorials / Blogs) -->
+          <div class="md:col-span-2 space-y-1.5">
+            <label for="contentTypeSelect" class="block text-xs font-semibold uppercase tracking-wider text-slate-600">
+              Content Type
+            </label>
+            <select
+              id="contentTypeSelect"
+              class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+            >
+              <option value="all" selected>All Types</option>
+              <option value="news">News Only</option>
+              <option value="article">Articles Only</option>
+              <option value="editorial">Editorials Only</option>
+              <option value="blog">Expert Blogs Only</option>
+            </select>
+          </div>
+
+          <!-- Extract CTA -->
+          <div class="md:col-span-2 flex items-end">
+            <button
+              id="extractBtn"
+              type="button"
+              class="w-full py-2.5 px-4 rounded-xl bg-blue-700 hover:bg-blue-800 active:bg-blue-900 text-white font-semibold text-sm shadow-sm transition flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>Extract News</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Custom Date Range Row -->
+        <div id="customDateRow" class="hidden grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+          <div class="space-y-1">
+            <label for="dateFrom" class="block text-xs font-medium text-slate-600">From Date</label>
+            <input id="dateFrom" type="date" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600" />
+          </div>
+          <div class="space-y-1">
+            <label for="dateTo" class="block text-xs font-medium text-slate-600">To Date</label>
+            <input id="dateTo" type="date" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm focus:outline-none focus:ring-2 focus:ring-blue-600" />
+          </div>
+        </div>
+
+        <!-- AI Golden News Agent Bar -->
+        <div class="p-3.5 rounded-xl bg-blue-50 border border-blue-200 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <label class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-blue-900 cursor-pointer select-none">
+              <input id="enableAiAgent" type="checkbox" checked class="w-4 h-4 rounded text-blue-700 focus:ring-blue-600 border-slate-300" />
+              <i data-lucide="bot" class="w-4 h-4 text-blue-700"></i>
+              <span>AI Golden News Agent (Verify Authenticity, Newspaper Focus &amp; Summary)</span>
+            </label>
+            <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-blue-700 hover:underline flex items-center gap-1">
+              <span>Get Free Gemini API Key</span>
+              <i data-lucide="external-link" class="w-3 h-3"></i>
+            </a>
+          </div>
+          <div id="aiConfigRow" class="grid grid-cols-1 md:grid-cols-12 gap-2.5 items-center">
+            <div class="md:col-span-6 relative">
+              <i data-lucide="key-round" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input
+                id="geminiApiKeyInput"
+                type="password"
+                placeholder="Paste your Gemini API Key (saved locally in your browser)"
+                class="w-full pl-9 pr-3 py-2 rounded-lg border border-slate-300 text-xs bg-white focus:outline-none focus:ring-2 focus:ring-blue-600"
+              />
+            </div>
+            <div class="md:col-span-3">
+              <select id="geminiModelSelect" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs bg-white font-medium">
+                <option value="gemini-4-hydrogen" selected>Gemini 4 Hydrogen (Fast &amp; Solid)</option>
+                <option value="gemini-4-argon">Gemini 4 Argon (Deep Verification)</option>
+                <option value="gemini-4-neon">Gemini 4 Neon (Fast Frontier)</option>
+                <option value="gemini-4-carbon">Gemini 4 Carbon (Max Depth)</option>
+                <option value="gemini-3.8-flash">Gemini 3.8 Flash (Agentic)</option>
+                <option value="gemini-3.5-flash-lite">Gemini 3.5 Flash-Lite (Ultra Fast)</option>
+              </select>
+            </div>
+            <div class="md:col-span-3 flex items-center gap-2">
+              <button id="runAiAgentBtn" type="button" class="flex-1 py-2 px-3 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold transition flex items-center justify-center gap-1.5 disabled:opacity-50">
+                <i data-lucide="wand-2" class="w-3.5 h-3.5"></i>
+                <span>Run AI Agent</span>
+              </button>
+              <button id="clearApiKeyBtn" type="button" title="Clear saved API key" class="py-2 px-2.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-600 text-xs font-semibold transition">
+                Clear
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Category Chips & Options -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-100">
+          <div class="flex flex-wrap items-center gap-1.5" id="quickChipsContainer">
+            <span class="text-xs font-medium text-slate-500 mr-1">Quick topics:</span>
+            <button type="button" data-chip="Economy &amp; Markets" class="quick-chip px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition">Economy &amp; Markets</button>
+            <button type="button" data-chip="Technology &amp; AI" class="quick-chip px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition">Technology &amp; AI</button>
+            <button type="button" data-chip="International Relations &amp; Geopolitics" class="quick-chip px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition">Geopolitics</button>
+            <button type="button" data-chip="Indian Polity &amp; Governance" class="quick-chip px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition">Polity &amp; Governance</button>
+            <button type="button" data-chip="Environment &amp; Climate" class="quick-chip px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition">Climate</button>
+            <button type="button" data-chip="Defence &amp; Security" class="quick-chip px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition">Defence</button>
+            <button type="button" data-chip="Sports" class="quick-chip px-2.5 py-1 rounded-full text-xs font-medium bg-slate-100 hover:bg-blue-50 hover:text-blue-700 text-slate-700 transition">Sports</button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <label class="inline-flex items-center gap-2 text-xs font-medium text-slate-700 cursor-pointer select-none">
+              <input id="includeEditorials" type="checkbox" checked class="w-4 h-4 rounded text-blue-700 focus:ring-blue-600 border-slate-300" />
+              <span>Include Important Articles &amp; Editorials</span>
+            </label>
+            <div class="flex items-center gap-1.5 text-xs text-slate-600">
+              <label for="extractModelSelect" class="font-medium">Search Model:</label>
+              <select id="extractModelSelect" class="px-2 py-1 rounded-lg border border-slate-300 bg-white text-xs font-medium">
+                <option value="gemini-3.5-flash-lite" selected>Gemini 3.5 Flash-Lite (Low Cost)</option>
+                <option value="gemini-4-hydrogen">Gemini 4 Hydrogen (Fast &amp; Solid)</option>
+                <option value="gemini-3.8-flash">Gemini 3.8 Flash (Agentic)</option>
+                <option value="gemini-4-argon">Gemini 4 Argon (Deep)</option>
+                <option value="gemini-4-neon">Gemini 4 Neon (Frontier)</option>
+                <option value="gemini-4-carbon">Gemini 4 Carbon (Max Depth)</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-slate-600">
+              <label for="languageSelect" class="font-medium">Language:</label>
+              <select id="languageSelect" class="px-2 py-1 rounded-lg border border-slate-300 bg-white text-xs font-medium">
+                <option value="en_hi" selected>English + Hindi</option>
+                <option value="en">English Only</option>
+                <option value="hi">Hindi Only</option>
+              </select>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-slate-600">
+              <label for="limitSelect" class="font-medium">Limit:</label>
+              <select id="limitSelect" class="px-2 py-1 rounded-lg border border-slate-300 bg-white text-xs font-medium">
+                <option value="20">20 items</option>
+                <option value="40" selected>40 items</option>
+                <option value="60">60 items</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Newspaper Filter Banner -->
+        <div id="focusedPapersBanner" class="hidden items-center justify-between gap-2 px-3.5 py-2 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-900">
+          <div class="flex items-center gap-2">
+            <i data-lucide="filter" class="w-3.5 h-3.5 text-blue-700"></i>
+            <span>Focused newspapers: <strong id="focusedPapersList"></strong></span>
+          </div>
+          <button id="clearFocusedPapersBtn" type="button" class="text-blue-700 hover:underline font-semibold">Clear</button>
+        </div>
+      </div>
+
+      <!-- Loading Progress Bar -->
+      <div id="loadingBox" class="hidden bg-white rounded-2xl border border-blue-200 p-5 shadow-sm no-print">
+        <div class="flex items-center gap-3">
+          <div class="w-5 h-5 border-2 border-blue-700 border-t-transparent rounded-full animate-spin shrink-0"></div>
+          <div class="flex-1">
+            <p id="loadingStatus" class="text-sm font-semibold text-slate-900">Fetching live newspapers...</p>
+            <p id="loadingSubstatus" class="text-xs text-slate-500 mt-0.5">Connecting to GDELT Global &amp; India News API</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error / Network Notice Banner -->
+      <div id="errorBox" class="hidden bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 space-y-3 no-print">
+        <div class="flex items-start gap-3">
+          <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+          <div class="flex-1 space-y-1">
+            <p id="errorTitle" class="text-sm font-bold text-amber-900">Unable to fetch live news feeds</p>
+            <p id="errorMessage" class="text-xs text-amber-800 leading-relaxed"></p>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 pl-8">
+          <button id="retryFetchBtn" type="button" class="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold transition">
+            Retry Live Fetch
+          </button>
+          <button id="toggleManualImportBtn" type="button" class="px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100 text-amber-900 text-xs font-semibold transition">
+            Paste RSS XML Manually
+          </button>
+        </div>
+      </div>
+
+      <!-- Manual RSS Import Drawer -->
+      <div id="manualImportBox" class="hidden bg-white border border-slate-200 rounded-2xl p-5 space-y-3 shadow-sm no-print">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-bold text-slate-900">Manual RSS XML Import</h3>
+          <button id="closeManualImportBtn" type="button" class="text-xs text-slate-500 hover:text-slate-900">Close</button>
+        </div>
+        <p class="text-xs text-slate-600">
+          Paste any newspaper or Google News RSS XML below to parse, structure, and run the AI Golden News Agent on it.
+        </p>
+        <textarea id="manualXmlInput" rows="5" placeholder="Paste RSS <rss>...</rss> XML here..." class="w-full p-3 rounded-xl border border-slate-300 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+        <div class="flex justify-end">
+          <button id="parseManualXmlBtn" type="button" class="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold transition">
+            Parse &amp; Structure XML
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty / Ready State -->
+      <div id="emptyState" class="bg-white rounded-2xl border border-slate-200 p-8 sm:p-10 text-center space-y-5">
+        <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center mx-auto">
+          <i data-lucide="globe-2" class="w-7 h-7"></i>
+        </div>
+        <div class="max-w-lg mx-auto space-y-2">
+          <h2 class="text-lg font-bold text-slate-900">Choose Your Category &amp; Timeframe</h2>
+          <p class="text-sm text-slate-600">
+            Enter any category above (or click a quick topic), select your timeframe, and click <strong>Extract News</strong>. Paste a free Gemini API key to automatically verify authenticity, extract each newspaper's focus, and highlight <strong>Golden News</strong>.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto text-left pt-2">
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
+            <div class="flex items-center gap-2 text-emerald-700 font-semibold text-xs">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+              <span>Indian Newspapers</span>
+            </div>
+            <p class="text-xs text-slate-600">The Hindu, Indian Express, TOI, HT, Mint, Economic Times, Business Standard &amp; more.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
+            <div class="flex items-center gap-2 text-blue-700 font-semibold text-xs">
+              <i data-lucide="bot" class="w-3.5 h-3.5"></i>
+              <span>Built-in AI Agent</span>
+            </div>
+            <p class="text-xs text-slate-600">Cross-checks credibility, extracts each newspaper's exact angle, and filters to-the-point Golden News.</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1">
+            <div class="flex items-center gap-2 text-amber-700 font-semibold text-xs">
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i>
+              <span>Sheets &amp; Report Ready</span>
+            </div>
+            <p class="text-xs text-slate-600">1-click Copy for Google Sheets, CSV download, or Formatted Editorial Report export.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Container -->
+      <div id="resultsSection" class="hidden space-y-5">
+        <!-- Executive Brief Banner (Shown after AI Agent runs) -->
+        <div id="execBriefBox" class="hidden bg-blue-50 border border-blue-200 rounded-2xl p-4 sm:p-5 space-y-1.5">
+          <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-800">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>AI Agent Executive Brief</span>
+          </div>
+          <p id="execBriefText" class="text-sm text-blue-900 leading-relaxed"></p>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <p class="text-xs font-medium text-slate-500">Total Extracted</p>
+            <p id="kpiTotal" class="text-2xl font-extrabold text-slate-900 mt-1">0</p>
+            <p id="kpiQueryMeta" class="text-[11px] text-slate-500 mt-1 truncate"></p>
+          </div>
+          <div class="bg-white rounded-xl border border-amber-200 p-4 shadow-sm">
+            <p class="text-xs font-medium text-amber-700">Golden News</p>
+            <p id="kpiGolden" class="text-2xl font-extrabold text-amber-700 mt-1">0</p>
+            <p class="text-[11px] text-slate-500 mt-1">High-signal AI verified</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <p class="text-xs font-medium text-emerald-700">Indian Newspapers</p>
+            <p id="kpiIndia" class="text-2xl font-extrabold text-emerald-700 mt-1">0</p>
+            <p class="text-[11px] text-slate-500 mt-1">Tagged with source &amp; link</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <p class="text-xs font-medium text-blue-700">Global Newspapers</p>
+            <p id="kpiGlobal" class="text-2xl font-extrabold text-blue-700 mt-1">0</p>
+            <p class="text-[11px] text-slate-500 mt-1">International coverage</p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
+            <p class="text-xs font-medium text-slate-600">Important Articles</p>
+            <p id="kpiEditorials" class="text-2xl font-extrabold text-slate-900 mt-1">0</p>
+            <p class="text-[11px] text-slate-500 mt-1">Subset of total (Articles/Editorials/Blogs)</p>
+          </div>
+        </div>
+
+        <!-- Results Toolbar -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-3 no-print">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <!-- View Toggle -->
+            <div class="inline-flex rounded-xl bg-slate-100 p-1">
+              <button id="btnViewTable" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold tab-active flex items-center gap-1.5">
+                <i data-lucide="table" class="w-3.5 h-3.5"></i>
+                <span>Structured Table</span>
+              </button>
+              <button id="btnViewReport" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold tab-inactive flex items-center gap-1.5">
+                <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+                <span>Formatted Report</span>
+              </button>
+            </div>
+
+            <!-- Export & Refresh Actions -->
+            <div class="flex flex-wrap items-center gap-2">
+              <button id="forceRefreshBtn" type="button" title="Bypass cache and fetch fresh live news" class="px-3 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold transition flex items-center gap-1.5">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                <span>Force Refresh</span>
+              </button>
+              <button id="loadMoreNewsBtn" type="button" title="Fetch additional unseen sources using the exact same query" class="px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold transition flex items-center gap-1.5 disabled:opacity-50">
+                <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+                <span>Load More News</span>
+              </button>
+              <button id="copySheetsBtn" type="button" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition flex items-center gap-1.5">
+                <i data-lucide="sheet" class="w-3.5 h-3.5"></i>
+                <span>Copy for Google Sheets</span>
+              </button>
+              <button id="downloadCsvBtn" type="button" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition flex items-center gap-1.5">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i>
+                <span>Download CSV</span>
+              </button>
+              <button id="downloadReportBtn" type="button" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-semibold transition flex items-center gap-1.5">
+                <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
+                <span>Download Report (.html)</span>
+              </button>
+              <button id="printReportBtn" type="button" class="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-semibold transition flex items-center gap-1.5">
+                <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+                <span>Print / PDF</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Inline Filters -->
+          <div class="flex flex-wrap items-center gap-2.5 pt-2 border-t border-slate-100">
+            <select id="filterQuality" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-medium">
+              <option value="verified">All Verified</option>
+              <option value="golden">Golden News Only</option>
+              <option value="all">Include Rejected</option>
+            </select>
+            <select id="filterRegion" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-medium">
+              <option value="all">All Regions</option>
+              <option value="India">India Only</option>
+              <option value="Global">Global Only</option>
+            </select>
+            <select id="filterLanguage" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-medium">
+              <option value="all">All Languages</option>
+              <option value="English">English Only</option>
+              <option value="Hindi">Hindi Only</option>
+            </select>
+            <select id="filterType" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-medium">
+              <option value="all">All Types</option>
+              <option value="News">News</option>
+              <option value="Article">Articles</option>
+              <option value="Editorial">Editorials</option>
+              <option value="Blog">Expert Blogs</option>
+            </select>
+            <select id="filterSource" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs bg-white font-medium max-w-[200px]">
+              <option value="all">All Newspapers / Sources</option>
+            </select>
+            <label class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-slate-200 bg-slate-50 text-xs font-medium text-slate-700 cursor-pointer">
+              <input id="filterStarred" type="checkbox" class="rounded text-amber-500 focus:ring-amber-500" />
+              <span>Starred Only</span>
+            </label>
+            <div class="relative flex-1 min-w-[180px]">
+              <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+              <input id="filterKeyword" type="text" placeholder="Filter headlines, focus, or newspapers..." class="w-full pl-8 pr-3 py-1.5 rounded-lg border border-slate-300 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600" />
+            </div>
+            <span id="visibleCountLabel" class="text-xs font-medium text-slate-500 ml-auto"></span>
+          </div>
+          <div id="archiveShortcutsBar" class="flex flex-wrap items-center gap-2 pt-2 border-t border-slate-100 text-[11px]">
+            <span class="font-semibold text-slate-500">Direct Print &amp; Web Archives:</span>
+            <a id="linkGoogleNewsArchive" href="https://news.google.com/newspapers" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-blue-50 text-blue-700 font-semibold transition">Google News Archive (Scanned Print) ↗</a>
+            <a id="linkInternetArchive" href="https://archive.org" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-emerald-50 text-emerald-700 font-semibold transition">Internet Archive (1990–2026) ↗</a>
+            <a id="linkWaybackHome" href="https://web.archive.org" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-amber-50 text-amber-800 font-semibold transition">Wayback Machine ↗</a>
+          </div>
+        </div>
+
+        <!-- TABLE VIEW -->
+        <div id="tableViewContainer" class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                  <th class="py-3 px-3 w-10 text-center">#</th>
+                  <th class="py-3 px-3 w-10 text-center no-print">Save</th>
+                  <th class="py-3 px-3 w-36">Status / Region</th>
+                  <th class="py-3 px-3 w-40">Newspaper / Source</th>
+                  <th class="py-3 px-4 min-w-[300px]">News, Exact Focus &amp; Summary</th>
+                  <th class="py-3 px-3 w-36">Resource</th>
+                  <th class="py-3 px-3 w-32">Published</th>
+                  <th class="py-3 px-3 w-24 text-right">Link</th>
+                </tr>
+              </thead>
+              <tbody id="newsTableBody" class="divide-y divide-slate-100 text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- FORMATTED REPORT VIEW -->
+        <div id="reportViewContainer" class="hidden space-y-6">
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+            <div class="border-b border-slate-200 pb-4 flex flex-wrap items-end justify-between gap-3">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-blue-700">Structured Golden News Briefing</span>
+                <h2 id="reportHeading" class="text-2xl font-extrabold text-slate-900 mt-1">Category News Report</h2>
+                <p id="reportSubheading" class="text-xs text-slate-500 mt-1"></p>
+              </div>
+              <div id="reportTimestamp" class="text-xs text-slate-500 font-medium"></div>
+            </div>
+
+            <!-- Section 0: Golden News -->
+            <div id="reportGoldenBlock" class="hidden space-y-3">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-amber-800 flex items-center gap-2">
+                <i data-lucide="award" class="w-4 h-4"></i>
+                <span>Golden News (AI Verified High-Signal Picks)</span>
+              </h3>
+              <div id="reportGoldenList" class="space-y-3"></div>
+            </div>
+
+            <!-- Section 1: Important Articles & Editorials -->
+            <div id="reportEditorialsBlock" class="space-y-3">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-amber-800 flex items-center gap-2">
+                <i data-lucide="bookmark-check" class="w-4 h-4"></i>
+                <span>Important Articles, Editorials &amp; Analysis</span>
+              </h3>
+              <div id="reportEditorialsList" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+            </div>
+
+            <!-- Section 2: Indian Newspapers -->
+            <div id="reportIndiaBlock" class="space-y-3">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-emerald-800 flex items-center gap-2">
+                <i data-lucide="map-pin" class="w-4 h-4"></i>
+                <span>Indian Newspapers Coverage</span>
+              </h3>
+              <div id="reportIndiaList" class="space-y-2.5"></div>
+            </div>
+
+            <!-- Section 3: Global Newspapers -->
+            <div id="reportGlobalBlock" class="space-y-3">
+              <h3 class="text-sm font-bold uppercase tracking-wider text-blue-800 flex items-center gap-2">
+                <i data-lucide="globe" class="w-4 h-4"></i>
+                <span>Global Newspapers Coverage</span>
+              </h3>
+              <div id="reportGlobalList" class="space-y-2.5"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 2: SOURCES DIRECTORY ==================== -->
+    <section id="viewSources" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Indian &amp; Global Newspaper Sources</h2>
+            <p class="text-xs text-slate-600 mt-0.5">
+              All newspapers are included by default. Click any outlets below to focus your next extraction on specific newspapers.
+            </p>
+          </div>
+          <button id="applySourceFocusBtn" type="button" class="px-4 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold transition">
+            Use Selected in Extractor
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
+              <i data-lucide="map-pin" class="w-4 h-4"></i>
+              <span>Major Indian English Newspapers</span>
+            </h3>
+            <div id="indiaSourcesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-amber-700 flex items-center gap-1.5">
+              <i data-lucide="languages" class="w-4 h-4"></i>
+              <span>Major Indian Hindi Newspapers</span>
+            </h3>
+            <div id="hindiSourcesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+          <div class="space-y-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
+              <i data-lucide="globe" class="w-4 h-4"></i>
+              <span>Major Global Newspapers &amp; Agencies</span>
+            </h3>
+            <div id="globalSourcesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold uppercase tracking-wider text-purple-700 flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Auto-Discovered Sources (Saved from Searches)</span>
+              </h3>
+              <button id="clearDiscoveredBtn" type="button" class="text-[11px] font-semibold text-slate-500 hover:underline">Clear</button>
+            </div>
+            <div id="discoveredSourcesGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== VIEW 3: HOW IT WORKS ==================== -->
+    <section id="viewHowItWorks" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+        <div class="space-y-1.5">
+          <span class="text-xs font-bold uppercase tracking-widest text-blue-700">Architecture &amp; Pipeline</span>
+          <h2 class="text-xl font-extrabold text-slate-900">How This In-Browser AI News Agent Works</h2>
+          <p class="text-sm text-slate-600">
+            A single-file, zero-install HTML app combining live GDELT DOC 2.0 Global News discovery with an embedded Gemini AI Verification &amp; Golden News Agent.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-700 text-white text-xs font-bold">1</span>
+            <h3 class="text-xs font-bold text-slate-900">Dynamic Query Builder</h3>
+            <p class="text-xs text-slate-600">Converts your category + timeframe (<code>timespan</code> or custom dates) into live GDELT DOC 2.0 API queries.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-700 text-white text-xs font-bold">2</span>
+            <h3 class="text-xs font-bold text-slate-900">India + Global Discovery</h3>
+            <p class="text-xs text-slate-600">Fetches live Indian (<code>sourcecountry:IN</code>) and worldwide newspaper coverage directly in JSON with RSS fallback.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-700 text-white text-xs font-bold">3</span>
+            <h3 class="text-xs font-bold text-slate-900">AI Verification Agent</h3>
+            <p class="text-xs text-slate-600">Gemini cross-checks stories across independent newspapers, flags clickbait/fluff, and verifies credibility.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-700 text-white text-xs font-bold">4</span>
+            <h3 class="text-xs font-bold text-slate-900">Golden News Synthesis</h3>
+            <p class="text-xs text-slate-600">Extracts each newspaper's exact focus, assigns a 1–10 signal score, and highlights only to-the-point Golden News.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-700 text-white text-xs font-bold">5</span>
+            <h3 class="text-xs font-bold text-slate-900">Sheets &amp; Report Export</h3>
+            <p class="text-xs text-slate-600">Exports 1-click Google Sheets TSV copy, CSV download, and standalone printable HTML briefings.</p>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900 text-slate-100 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-blue-300">Live Query Inspector</span>
+            <span class="text-[11px] text-slate-400">Updates live as you change category or timeframe</span>
+          </div>
+          <pre id="liveQueryPreview" class="text-xs font-mono text-emerald-300 overflow-x-auto whitespace-pre-wrap leading-relaxed"></pre>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold shadow-lg transition">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toastText">Done</span>
+  </div>
+
+  <script>
+    // ==================== CURATED NEWSPAPER DIRECTORIES ====================
+    const INDIA_PAPERS = [
+      { name: 'The Hindu', domain: 'thehindu.com', type: 'National Daily & Editorial' },
+      { name: 'The Indian Express', domain: 'indianexpress.com', type: 'National Daily & Explainers' },
+      { name: 'The Times of India', domain: 'timesofindia.indiatimes.com', type: 'National Daily' },
+      { name: 'Hindustan Times', domain: 'hindustantimes.com', type: 'National Daily' },
+      { name: 'Mint (Livemint)', domain: 'livemint.com', type: 'Business & Economy' },
+      { name: 'The Economic Times', domain: 'economictimes.indiatimes.com', type: 'Business & Markets' },
+      { name: 'Business Standard', domain: 'business-standard.com', type: 'Business & Policy' },
+      { name: 'Deccan Herald', domain: 'deccanherald.com', type: 'National Daily' },
+      { name: 'The Telegraph', domain: 'telegraphindia.com', type: 'National Daily' },
+      { name: 'NDTV', domain: 'ndtv.com', type: 'News Network' },
+      { name: 'ThePrint', domain: 'theprint.in', type: 'Digital & Analysis' },
+      { name: 'Scroll.in', domain: 'scroll.in', type: 'In-depth & Articles' },
+      { name: 'India Today', domain: 'indiatoday.in', type: 'News & Magazine' },
+      { name: 'Financial Express', domain: 'financialexpress.com', type: 'Finance & Economy' }
+    ];
+
+    const HINDI_PAPERS = [
+      { name: 'Dainik Bhaskar', domain: 'bhaskar.com', type: 'Hindi National Daily' },
+      { name: 'Dainik Jagran', domain: 'jagran.com', type: 'Hindi National Daily' },
+      { name: 'Amar Ujala', domain: 'amarujala.com', type: 'Hindi National Daily' },
+      { name: 'Navbharat Times (TOI Hindi)', domain: 'navbharattimes.indiatimes.com', type: 'Hindi National Daily' },
+      { name: 'Live Hindustan (HT Hindi)', domain: 'livehindustan.com', type: 'Hindi National Daily' },
+      { name: 'Jansatta (IE Hindi)', domain: 'jansatta.com', type: 'Hindi Daily & Editorial' },
+      { name: 'Aaj Tak', domain: 'aajtak.in', type: 'Hindi News Network' },
+      { name: 'ABP Live Hindi', domain: 'abplive.com', type: 'Hindi News Network' },
+      { name: 'BBC News Hindi', domain: 'bbc.com/hindi', type: 'Global Hindi News' },
+      { name: 'NDTV India (Hindi)', domain: 'ndtv.in', type: 'Hindi News Network' },
+      { name: 'News18 Hindi', domain: 'hindi.news18.com', type: 'Hindi News Network' },
+      { name: 'Economic Times Hindi', domain: 'hindi.economictimes.com', type: 'Hindi Business & Markets' }
+    ];
+
+    const GLOBAL_PAPERS = [
+      { name: 'BBC News', domain: 'bbc.com', type: 'UK / Global' },
+      { name: 'Reuters', domain: 'reuters.com', type: 'Global Wire Agency' },
+      { name: 'The Guardian', domain: 'theguardian.com', type: 'UK / Global & Opinion' },
+      { name: 'The New York Times', domain: 'nytimes.com', type: 'US / Global' },
+      { name: 'The Washington Post', domain: 'washingtonpost.com', type: 'US / Global' },
+      { name: 'Financial Times', domain: 'ft.com', type: 'Global Finance' },
+      { name: 'Al Jazeera', domain: 'aljazeera.com', type: 'Middle East / Global' },
+      { name: 'Bloomberg', domain: 'bloomberg.com', type: 'Global Markets' },
+      { name: 'Associated Press', domain: 'apnews.com', type: 'Global Wire Agency' },
+      { name: 'DW (Deutsche Welle)', domain: 'dw.com', type: 'Europe / Global' },
+      { name: 'Nikkei Asia', domain: 'asia.nikkei.com', type: 'Asia / Global' },
+      { name: 'The Economist', domain: 'economist.com', type: 'Analysis & Articles' },
+      { name: 'France 24', domain: 'france24.com', type: 'Europe / Global' },
+      { name: 'South China Morning Post', domain: 'scmp.com', type: 'Asia / Global' }
+    ];
+
+    const INDIA_KEYWORDS = [
+      'hindu', 'indian express', 'times of india', 'hindustan times', 'livemint', 'mint',
+      'economic times', 'business standard', 'ndtv', 'india today', 'news18', 'theprint',
+      'scroll', 'deccan herald', 'telegraph india', 'financial express', 'moneycontrol',
+      'tribune india', 'the wire', 'firstpost', 'zee news', 'abp', 'aaj tak', 'dainik',
+      'amar ujala', 'jagran', 'pib', 'pti', 'ani', 'wion', 'cnbctv18', 'outlook india',
+      'business today', 'new indian express', 'deccan chronicle', 'mid-day', 'free press journal'
+    ];
+
+    const EDITORIAL_KEYWORDS = [
+      'editorial', 'opinion', 'analysis', 'explained', 'explainer', 'commentary',
+      'perspective', 'deep dive', 'column', 'viewpoint', 'essay', 'special report', 'in-depth'
+    ];
+
+    const DOMAIN_NAME_MAP = {
+      'thehindu.com': 'The Hindu',
+      'indianexpress.com': 'The Indian Express',
+      'timesofindia.indiatimes.com': 'The Times of India',
+      'hindustantimes.com': 'Hindustan Times',
+      'livemint.com': 'Mint (Livemint)',
+      'economictimes.indiatimes.com': 'The Economic Times',
+      'business-standard.com': 'Business Standard',
+      'deccanherald.com': 'Deccan Herald',
+      'telegraphindia.com': 'The Telegraph India',
+      'ndtv.com': 'NDTV',
+      'theprint.in': 'ThePrint',
+      'scroll.in': 'Scroll.in',
+      'indiatoday.in': 'India Today',
+      'financialexpress.com': 'Financial Express',
+      'moneycontrol.com': 'Moneycontrol',
+      'news18.com': 'News18',
+      'tribuneindia.com': 'The Tribune',
+      'newindianexpress.com': 'The New Indian Express',
+      'deccanchronicle.com': 'Deccan Chronicle',
+      'firstpost.com': 'Firstpost',
+      'thewire.in': 'The Wire',
+      'wionews.com': 'WION',
+      'businesstoday.in': 'Business Today',
+      'bbc.com': 'BBC News',
+      'bbc.co.uk': 'BBC News',
+      'reuters.com': 'Reuters',
+      'theguardian.com': 'The Guardian',
+      'nytimes.com': 'The New York Times',
+      'washingtonpost.com': 'The Washington Post',
+      'ft.com': 'Financial Times',
+      'aljazeera.com': 'Al Jazeera',
+      'bloomberg.com': 'Bloomberg',
+      'apnews.com': 'Associated Press',
+      'dw.com': 'DW (Deutsche Welle)',
+      'asia.nikkei.com': 'Nikkei Asia',
+      'economist.com': 'The Economist',
+      'france24.com': 'France 24',
+      'scmp.com': 'South China Morning Post',
+      'cnn.com': 'CNN',
+      'cnbc.com': 'CNBC',
+      'forbes.com': 'Forbes',
+      'npr.org': 'NPR'
+    };
+
+    const ACRONYM_MAP = {
+      'ai': '"artificial intelligence"',
+      'ml': '"machine learning"',
+      'ev': '"electric vehicle"',
+      'it': '"information technology"',
+      'us': '"United States"',
+      'uk': '"United Kingdom"',
+      'un': '"United Nations"',
+      'eu': '"European Union"',
+      'upsc': '(governance OR policy OR economy)'
+    };
+
+    // ==================== APP STATE ====================
+    const state = {
+      activeTab: 'extractor',
+      resultView: 'table',
+      themeMode: 'dark',
+      articles: [],
+      executiveBrief: '',
+      aiAnalyzed: false,
+      starredIds: new Set(),
+      focusedDomains: new Set(),
+      discoveredSources: [],
+      lastQuery: { category: '', timeframeLabel: '', region: 'all' }
+    };
+
+    let lastGdeltCallTs = 0;
+
+    // ==================== DOM REFERENCES ====================
+    const el = {
+      navExtractor: document.getElementById('navExtractor'),
+      navSources: document.getElementById('navSources'),
+      navHowItWorks: document.getElementById('navHowItWorks'),
+      viewExtractor: document.getElementById('viewExtractor'),
+      viewSources: document.getElementById('viewSources'),
+      viewHowItWorks: document.getElementById('viewHowItWorks'),
+
+      themeDarkBtn: document.getElementById('themeDarkBtn'),
+      themeLightBtn: document.getElementById('themeLightBtn'),
+      themeSystemBtn: document.getElementById('themeSystemBtn'),
+
+      categoryInput: document.getElementById('categoryInput'),
+      timeframeSelect: document.getElementById('timeframeSelect'),
+      customDateRow: document.getElementById('customDateRow'),
+      dateFrom: document.getElementById('dateFrom'),
+      dateTo: document.getElementById('dateTo'),
+      regionSelect: document.getElementById('regionSelect'),
+      contentTypeSelect: document.getElementById('contentTypeSelect'),
+      includeEditorials: document.getElementById('includeEditorials'),
+      extractModelSelect: document.getElementById('extractModelSelect'),
+      languageSelect: document.getElementById('languageSelect'),
+      limitSelect: document.getElementById('limitSelect'),
+      extractBtn: document.getElementById('extractBtn'),
+
+      enableAiAgent: document.getElementById('enableAiAgent'),
+      aiConfigRow: document.getElementById('aiConfigRow'),
+      geminiApiKeyInput: document.getElementById('geminiApiKeyInput'),
+      geminiModelSelect: document.getElementById('geminiModelSelect'),
+      runAiAgentBtn: document.getElementById('runAiAgentBtn'),
+      clearApiKeyBtn: document.getElementById('clearApiKeyBtn'),
+
+      focusedPapersBanner: document.getElementById('focusedPapersBanner'),
+      focusedPapersList: document.getElementById('focusedPapersList'),
+      clearFocusedPapersBtn: document.getElementById('clearFocusedPapersBtn'),
+
+      loadingBox: document.getElementById('loadingBox'),
+      loadingStatus: document.getElementById('loadingStatus'),
+      loadingSubstatus: document.getElementById('loadingSubstatus'),
+
+      errorBox: document.getElementById('errorBox'),
+      errorTitle: document.getElementById('errorTitle'),
+      errorMessage: document.getElementById('errorMessage'),
+      retryFetchBtn: document.getElementById('retryFetchBtn'),
+      toggleManualImportBtn: document.getElementById('toggleManualImportBtn'),
+
+      manualImportBox: document.getElementById('manualImportBox'),
+      closeManualImportBtn: document.getElementById('closeManualImportBtn'),
+      manualXmlInput: document.getElementById('manualXmlInput'),
+      parseManualXmlBtn: document.getElementById('parseManualXmlBtn'),
+
+      emptyState: document.getElementById('emptyState'),
+      resultsSection: document.getElementById('resultsSection'),
+      execBriefBox: document.getElementById('execBriefBox'),
+      execBriefText: document.getElementById('execBriefText'),
+
+      kpiTotal: document.getElementById('kpiTotal'),
+      kpiGolden: document.getElementById('kpiGolden'),
+      kpiQueryMeta: document.getElementById('kpiQueryMeta'),
+      kpiIndia: document.getElementById('kpiIndia'),
+      kpiGlobal: document.getElementById('kpiGlobal'),
+      kpiEditorials: document.getElementById('kpiEditorials'),
+
+      btnViewTable: document.getElementById('btnViewTable'),
+      btnViewReport: document.getElementById('btnViewReport'),
+      forceRefreshBtn: document.getElementById('forceRefreshBtn'),
+      loadMoreNewsBtn: document.getElementById('loadMoreNewsBtn'),
+      copySheetsBtn: document.getElementById('copySheetsBtn'),
+      downloadCsvBtn: document.getElementById('downloadCsvBtn'),
+      downloadReportBtn: document.getElementById('downloadReportBtn'),
+      printReportBtn: document.getElementById('printReportBtn'),
+
+      filterQuality: document.getElementById('filterQuality'),
+      filterRegion: document.getElementById('filterRegion'),
+      filterLanguage: document.getElementById('filterLanguage'),
+      filterType: document.getElementById('filterType'),
+      filterSource: document.getElementById('filterSource'),
+      filterStarred: document.getElementById('filterStarred'),
+      filterKeyword: document.getElementById('filterKeyword'),
+      visibleCountLabel: document.getElementById('visibleCountLabel'),
+
+      tableViewContainer: document.getElementById('tableViewContainer'),
+      newsTableBody: document.getElementById('newsTableBody'),
+      reportViewContainer: document.getElementById('reportViewContainer'),
+      reportHeading: document.getElementById('reportHeading'),
+      reportSubheading: document.getElementById('reportSubheading'),
+      reportTimestamp: document.getElementById('reportTimestamp'),
+      reportGoldenBlock: document.getElementById('reportGoldenBlock'),
+      reportGoldenList: document.getElementById('reportGoldenList'),
+      reportEditorialsBlock: document.getElementById('reportEditorialsBlock'),
+      reportEditorialsList: document.getElementById('reportEditorialsList'),
+      reportIndiaBlock: document.getElementById('reportIndiaBlock'),
+      reportIndiaList: document.getElementById('reportIndiaList'),
+      reportGlobalBlock: document.getElementById('reportGlobalBlock'),
+      reportGlobalList: document.getElementById('reportGlobalList'),
+
+      indiaSourcesGrid: document.getElementById('indiaSourcesGrid'),
+      hindiSourcesGrid: document.getElementById('hindiSourcesGrid'),
+      discoveredSourcesGrid: document.getElementById('discoveredSourcesGrid'),
+      clearDiscoveredBtn: document.getElementById('clearDiscoveredBtn'),
+      globalSourcesGrid: document.getElementById('globalSourcesGrid'),
+      applySourceFocusBtn: document.getElementById('applySourceFocusBtn'),
+      liveQueryPreview: document.getElementById('liveQueryPreview'),
+
+      toast: document.getElementById('toast'),
+      toastText: document.getElementById('toastText')
+    };
+
+    // ==================== THEME ENGINE ====================
+    function applyTheme(mode) {
+      state.themeMode = mode;
+      try { localStorage.setItem('news_agent_theme', mode); } catch (e) {}
+
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const useDark = mode === 'dark' || (mode === 'system' && prefersDark);
+      document.documentElement.classList.toggle('dark', useDark);
+
+      const map = { dark: el.themeDarkBtn, light: el.themeLightBtn, system: el.themeSystemBtn };
+      Object.entries(map).forEach(([k, btn]) => {
+        btn.classList.toggle('tab-active', k === mode);
+        btn.classList.toggle('tab-inactive', k !== mode);
+      });
+    }
+
+    if (window.matchMedia) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+        if (state.themeMode === 'system') applyTheme('system');
+      });
+    }
+
+    // ==================== UTILITIES ====================
+    function showToast(msg) {
+      el.toastText.textContent = msg;
+      el.toast.classList.remove('hidden');
+      el.toast.classList.add('flex');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => {
+        el.toast.classList.add('hidden');
+        el.toast.classList.remove('flex');
+      }, 3000);
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function stripHtml(htmlStr) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = htmlStr || '';
+      return (tmp.textContent || tmp.innerText || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function isDateOnlyString(dateStr) {
+      return /^\d{4}-\d{2}-\d{2}$/.test(String(dateStr || '').trim());
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return 'Recent';
+      const raw = String(dateStr).trim();
+      if (isDateOnlyString(raw)) {
+        const [y, m, day] = raw.split('-').map(Number);
+        const d = new Date(Date.UTC(y, m - 1, day, 12, 0, 0));
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' }) + ' (Time N/A)';
+      }
+      const d = new Date(raw);
+      if (isNaN(d.getTime())) return raw;
+      const ist = d.toLocaleString('en-IN', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: true,
+        timeZone: 'Asia/Kolkata'
+      });
+      const utc = d.toLocaleString('en-GB', {
+        hour: '2-digit', minute: '2-digit', hour12: false,
+        timeZone: 'UTC'
+      });
+      return `${ist} IST | ${utc} UTC`;
+    }
+
+    function formatDateCellHtml(dateStr) {
+      if (!dateStr) return '<span class="text-slate-400">Recent</span>';
+      const raw = String(dateStr).trim();
+      if (isDateOnlyString(raw)) {
+        const [y, m, day] = raw.split('-').map(Number);
+        const d = new Date(Date.UTC(y, m - 1, day, 12, 0, 0));
+        const lbl = d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
+        return `<div class="font-medium text-slate-700">${escapeHtml(lbl)}</div><div class="text-[10px] text-slate-400">Exact time N/A</div>`;
+      }
+      const d = new Date(raw);
+      if (isNaN(d.getTime())) return escapeHtml(raw);
+      const ist = d.toLocaleString('en-IN', {
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', hour12: true,
+        timeZone: 'Asia/Kolkata'
+      });
+      const utc = d.toLocaleString('en-GB', {
+        day: '2-digit', month: 'short',
+        hour: '2-digit', minute: '2-digit', hour12: false,
+        timeZone: 'UTC'
+      });
+      return `<div class="font-semibold text-slate-800">${escapeHtml(ist)} <span class="text-[10px] font-bold text-emerald-700">IST</span></div><div class="text-[10px] text-slate-500 mt-0.5">${escapeHtml(utc)} UTC</div>`;
+    }
+
+    function copyTextToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+      }
+      return fallbackCopy(text);
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } finally { document.body.removeChild(ta); }
+      return Promise.resolve();
+    }
+
+    function downloadFile(content, filename, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    function initDefaultCustomDates() {
+      const today = new Date();
+      const weekAgo = new Date(today.getTime() - 7 * 86400000);
+      el.dateTo.value = today.toISOString().slice(0, 10);
+      el.dateFrom.value = weekAgo.toISOString().slice(0, 10);
+    }
+
+    function formatDomainAsName(domain) {
+      if (!domain) return 'News Source';
+      const clean = domain.toLowerCase().replace(/^www\./, '');
+      if (DOMAIN_NAME_MAP[clean]) return DOMAIN_NAME_MAP[clean];
+      for (const [k, v] of Object.entries(DOMAIN_NAME_MAP)) {
+        if (clean.endsWith('.' + k) || clean === k) return v;
+      }
+      const base = clean.split('.')[0].replace(/[-_]/g, ' ');
+      return base.replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    function parseGdeltDate(seendate) {
+      if (!seendate) return { iso: '', ts: 0 };
+      const m = String(seendate).match(/^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?$/);
+      if (!m) {
+        const ts = Date.parse(seendate) || 0;
+        return { iso: seendate, ts };
+      }
+      const iso = `${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:${m[6]}Z`;
+      return { iso, ts: Date.parse(iso) || 0 };
+    }
+
+    // ==================== QUERY BUILDER ====================
+    function getGdeltTimeParams() {
+      const tf = el.timeframeSelect.value;
+      if (tf === 'custom') {
+        const from = el.dateFrom.value;
+        const to = el.dateTo.value;
+        const params = [];
+        if (from) params.push('startdatetime=' + from.replace(/-/g, '') + '000000');
+        if (to) params.push('enddatetime=' + to.replace(/-/g, '') + '235959');
+        return { paramStr: params.join('&') || 'timespan=7d', label: (from || 'Start') + ' to ' + (to || 'Today') };
+      }
+      const map = {
+        '1h': { p: 'timespan=1h', label: 'Last 1 Hour' },
+        '6h': { p: 'timespan=6h', label: 'Last 6 Hours' },
+        '1d': { p: 'timespan=24h', label: 'Last 24 Hours' },
+        '3d': { p: 'timespan=3d', label: 'Last 3 Days' },
+        '7d': { p: 'timespan=7d', label: 'Last 7 Days' },
+        '30d': { p: 'timespan=30d', label: 'Last 30 Days' }
+      };
+      const entry = map[tf] || map['7d'];
+      return { paramStr: entry.p, label: entry.label };
+    }
+
+    function sanitizeCategoryForGdelt(category) {
+      const raw = (category || 'Economy').trim();
+      const chunks = raw.split(/[&,\/|]+/).map(c => c.trim()).filter(Boolean);
+      const terms = [];
+      for (const chunk of chunks) {
+        const lower = chunk.toLowerCase();
+        if (ACRONYM_MAP[lower]) { terms.push(ACRONYM_MAP[lower]); continue; }
+        const cleaned = chunk.replace(/[^a-zA-Z0-9\s-]/g, ' ').replace(/\s+/g, ' ').trim();
+        if (!cleaned) continue;
+        const words = cleaned.split(' ').filter(Boolean);
+        if (words.length === 1) {
+          const w = words[0];
+          if (ACRONYM_MAP[w.toLowerCase()]) terms.push(ACRONYM_MAP[w.toLowerCase()]);
+          else if (w.length >= 3) terms.push(w);
+        } else {
+          const expanded = words
+            .filter(w => w.length >= 2)
+            .map(w => ACRONYM_MAP[w.toLowerCase()] || w);
+          if (expanded.length > 0) terms.push('(' + expanded.join(' ') + ')');
+        }
+      }
+      if (terms.length === 0) return 'news';
+      return terms.length === 1 ? terms[0] : '(' + terms.join(' OR ') + ')';
+    }
+
+    function buildGdeltUrl(category, regionOverride, maxRecords) {
+      const cleanCat = (category || 'Economy & Markets').trim();
+      const catExpr = sanitizeCategoryForGdelt(cleanCat);
+      const tf = getGdeltTimeParams();
+      const region = regionOverride || el.regionSelect.value;
+
+      const contentType = el.contentTypeSelect ? el.contentTypeSelect.value : 'all';
+      const queryParts = [catExpr, 'sourcelang:english'];
+      if (contentType === 'editorial') {
+        queryParts.push('(editorial OR opinion OR commentary OR "op-ed")');
+      } else if (contentType === 'article') {
+        queryParts.push('(analysis OR explainer OR explained OR "special report" OR feature)');
+      } else if (contentType === 'blog') {
+        queryParts.push('(blog OR essay OR substack OR perspective OR column)');
+      }
+      if (region === 'india') queryParts.push('sourcecountry:IN');
+      if (state.focusedDomains.size > 0) {
+        const doms = Array.from(state.focusedDomains).map(d => 'domain:' + d);
+        queryParts.push(doms.length === 1 ? doms[0] : '(' + doms.join(' OR ') + ')');
+      }
+
+      const fullQuery = queryParts.join(' ');
+      const url = 'https://api.gdeltproject.org/api/v2/doc/doc?query=' +
+        encodeURIComponent(fullQuery) +
+        '&mode=artlist&format=json&sort=datedesc&maxrecords=' + (maxRecords || 100) +
+        '&' + tf.paramStr;
+
+      return { url, fullQuery, tfLabel: tf.label, cleanCat };
+    }
+
+    function updateLiveQueryPreview() {
+      const cat = el.categoryInput.value.trim() || 'Economy & Markets';
+      const primary = buildGdeltUrl(cat, el.regionSelect.value, 100);
+      const lines = [
+        `1. [GDELT DOC 2.0 Global News API — Native CORS JSON]\n   Query: ${primary.fullQuery}\n   URL:   ${primary.url}`,
+        `2. [Gemini AI Verification & Golden News Agent]\n   Search Model: ${el.extractModelSelect ? el.extractModelSelect.value : 'gemini-3.5-flash-lite'} | Golden News Agent Model: ${el.geminiModelSelect.value}`
+      ];
+      el.liveQueryPreview.textContent = lines.join('\n\n');
+    }
+
+    // ==================== LIVE FETCHER + DIRECT RSS FALLBACK ====================
+    async function fetchWithTimeout(url, timeoutMs, options) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(new Error('Request timed out after ' + Math.round(timeoutMs / 1000) + 's')), timeoutMs);
+      try {
+        const res = await fetch(url, { ...(options || {}), signal: controller.signal });
+        if (!res.ok) {
+          let detail = 'HTTP ' + res.status;
+          try {
+            const errJson = await res.json();
+            if (errJson && errJson.error && errJson.error.message) detail = errJson.error.message;
+          } catch (e) {}
+          throw new Error(detail);
+        }
+        return res;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+    const VIDEO_URL_PATTERN = /(youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com|tiktok\.com|instagram\.com\/reel|facebook\.com\/(watch|reel)|\/(video|videos|watch|shorts|livetv|web-stories|visualstories)\b)/i;
+
+    function isVideoUrlOrSource(url, source) {
+      const u = String(url || '').toLowerCase();
+      const s = String(source || '').toLowerCase();
+      return VIDEO_URL_PATTERN.test(u) || /\b(youtube|vimeo|dailymotion|tiktok)\b/i.test(s);
+    }
+
+    function matchesFocusedSources(article) {
+      if (state.focusedDomains.size === 0) return true;
+      const focusedArr = Array.from(state.focusedDomains);
+      const u = String(article.link || '').toLowerCase();
+      const d = String(article.domain || '').toLowerCase();
+      const s = String(article.source || '').toLowerCase();
+      return focusedArr.some(dom => {
+        const cleanDom = dom.toLowerCase().replace(/^www\./, '');
+        const expectedName = formatDomainAsName(cleanDom).toLowerCase();
+        const shortName = expectedName.replace(/^the\s+/, '').split('(')[0].trim();
+        return u.includes(cleanDom) || d.includes(cleanDom) || (shortName.length >= 3 && s.includes(shortName));
+      });
+    }
+
+    // Block all non-English & non-Hindi scripts (Tamil, Odia, Telugu, Kannada, Malayalam, Bengali, Gujarati, Punjabi, Arabic, CJK, etc.)
+    const DISALLOWED_SCRIPTS = /[\u0980-\u09FF\u0A00-\u0A7F\u0A80-\u0AFF\u0B00-\u0B7F\u0B80-\u0BFF\u0C00-\u0C7F\u0C80-\u0CFF\u0D00-\u0D7F\u0600-\u06FF\u4E00-\u9FFF\u3040-\u30FF\uAC00-\uD7AF]/;
+    const DEVANAGARI_SCRIPT = /[\u0900-\u097F]/;
+
+    function isAllowedLanguage(title, summary) {
+      const text = `${title || ''} ${summary || ''}`;
+      if (DISALLOWED_SCRIPTS.test(text)) return false;
+      const mode = el.languageSelect ? el.languageSelect.value : 'en_hi';
+      if (mode === 'en' && DEVANAGARI_SCRIPT.test(text)) return false;
+      if (mode === 'hi' && !DEVANAGARI_SCRIPT.test(text)) return false;
+      return true;
+    }
+
+    function autoRegisterDiscoveredSources(items) {
+      const knownDomains = new Set([
+        ...INDIA_PAPERS.map(p => p.domain.toLowerCase()),
+        ...HINDI_PAPERS.map(p => p.domain.toLowerCase()),
+        ...GLOBAL_PAPERS.map(p => p.domain.toLowerCase()),
+        ...state.discoveredSources.map(p => p.domain.toLowerCase())
+      ]);
+      let added = 0;
+      for (const a of items) {
+        let dom = (a.domain || '').toLowerCase().replace(/^www\./, '');
+        if (!dom && a.link) {
+          try { dom = new URL(a.link).hostname.toLowerCase().replace(/^www\./, ''); } catch (e) {}
+        }
+        if (!dom || dom.includes('google.com') || dom.includes('vertexaisearch')) continue;
+        if (!knownDomains.has(dom) && !Array.from(knownDomains).some(k => dom.endsWith('.' + k))) {
+          knownDomains.add(dom);
+          state.discoveredSources.push({
+            name: a.source || formatDomainAsName(dom),
+            domain: dom,
+            type: a.region === 'India' ? 'Discovered (India)' : 'Discovered (Global)'
+          });
+          added += 1;
+        }
+      }
+      if (added > 0) {
+        try { localStorage.setItem('news_extractor_discovered_sources', JSON.stringify(state.discoveredSources.slice(-40))); } catch (e) {}
+        renderSourcesDirectory();
+      }
+    }
+
+    function filterTextAndSourceRules(items, region) {
+      return items.filter(a => {
+        if (!a || !a.title || !a.link) return false;
+        if (isVideoUrlOrSource(a.link, a.source)) return false;
+        if (!isAllowedLanguage(a.title, a.summary)) return false;
+        if (!matchesFocusedSources(a)) return false;
+        if (state.focusedDomains.size === 0) {
+          if (region === 'india' && a.region !== 'India') return false;
+          if (region === 'global' && a.region !== 'Global') return false;
+        }
+        return true;
+      });
+    }
+
+    function classifyArticle(rawTitle, rawSource, rawDesc, feedMeta) {
+      let title = stripHtml(rawTitle);
+      let source = (rawSource || '').trim();
+      const dashIdx = title.lastIndexOf(' - ');
+      if (dashIdx > 15) {
+        const trailing = title.slice(dashIdx + 3).trim();
+        if (!source) source = trailing;
+        title = title.slice(0, dashIdx).trim();
+      }
+      if (!source) source = 'News Source';
+
+      const sourceLower = source.toLowerCase();
+      const titleLower = title.toLowerCase();
+      const urlLower = (feedMeta.url || '').toLowerCase();
+
+      const isIndianSource = feedMeta.sourceCountry === 'India' ||
+        INDIA_KEYWORDS.some(k => sourceLower.includes(k)) ||
+        urlLower.includes('.in/') || urlLower.includes('indiatimes.com') || urlLower.includes('thehindu.com') ||
+        urlLower.includes('indianexpress.com') || urlLower.includes('hindustantimes.com') || urlLower.includes('livemint.com');
+
+      const region = isIndianSource ? 'India' : 'Global';
+      const selectedCT = el.contentTypeSelect ? el.contentTypeSelect.value : 'all';
+      const isBlogPath = /\/(blog|blogs|substack|essay|essays|medium)\b|substack\.com|medium\.com/i.test(urlLower) || /\b(blog|essay|newsletter)\b/i.test(titleLower);
+      const isEditorialPath = /\/(opinion|editorial|editorials|comment|commentary|column|columns|views|op-ed)\//i.test(urlLower) || /\b(editorial|opinion|op-ed|commentary|column)\b/i.test(titleLower);
+      const isArticlePath = /\/(analysis|explained|explainer|feature|long-read|specials|in-depth)\//i.test(urlLower) || /\b(analysis|explained|explainer|deep dive|special report|in-depth)\b/i.test(titleLower);
+
+      let type = 'News';
+      if (isEditorialPath) type = 'Editorial';
+      else if (isBlogPath) type = 'Blog';
+      else if (isArticlePath) type = 'Article';
+      else if (selectedCT === 'editorial') type = 'Editorial';
+      else if (selectedCT === 'blog') type = 'Blog';
+      else if (selectedCT === 'article') type = 'Article';
+
+      let summary = stripHtml(rawDesc);
+      if (!summary || summary.toLowerCase() === title.toLowerCase() || summary.length < 25) {
+        const countryNote = feedMeta.sourceCountry ? ` (${feedMeta.sourceCountry})` : '';
+        summary = `Published by ${source}${countryNote}. Run AI Agent or open the article link for full details.`;
+      }
+
+      return { title, source, region, type, summary };
+    }
+
+    function mapGdeltArticles(gdeltList, regionHint) {
+      if (!Array.isArray(gdeltList)) return [];
+      return gdeltList.map((item, idx) => {
+        const domain = (item.domain || '').trim();
+        const paperName = formatDomainAsName(domain);
+        const country = (item.sourcecountry || (regionHint === 'india' ? 'India' : '')).trim();
+        const dt = parseGdeltDate(item.seendate);
+        const info = classifyArticle(item.title, paperName, '', {
+          regionHint: regionHint === 'india' ? 'India' : 'Global',
+          sourceCountry: country,
+          url: item.url || '',
+          typeHint: 'News'
+        });
+
+        return {
+          id: `gdelt-${idx}-${(item.url || info.title).slice(-28).replace(/[^a-zA-Z0-9]/g, '')}`,
+          title: info.title,
+          summary: info.summary,
+          source: info.source,
+          domain: domain,
+          region: info.region,
+          type: info.type,
+          resource: country ? `${country} • ${domain || paperName}` : (domain || 'GDELT Global News'),
+          pubDate: dt.iso,
+          timestamp: dt.ts,
+          link: item.url || '',
+          // AI Agent fields
+          isGolden: false,
+          signalScore: 0,
+          verificationStatus: 'Pending AI',
+          authenticityReason: '',
+          newspaperFocus: '',
+          whyItMatters: '',
+          corroboratedBy: []
+        };
+      }).filter(a => a.title && a.link);
+    }
+
+    const queryCache = new Map();
+    const GDELT_COOLDOWN_MS = 6500;
+
+    async function sleepWithCountdown(totalMs, prefixMsg) {
+      let remaining = Math.ceil(totalMs / 1000);
+      while (remaining > 0) {
+        el.loadingSubstatus.textContent = `${prefixMsg} (${remaining}s)...`;
+        await sleep(1000);
+        remaining -= 1;
+      }
+    }
+
+    async function fetchGdeltBatch(url, regionHint, retryCount) {
+      const attempt = retryCount || 0;
+      const now = Date.now();
+      const elapsed = now - lastGdeltCallTs;
+      if (lastGdeltCallTs > 0 && elapsed < GDELT_COOLDOWN_MS) {
+        await sleepWithCountdown(GDELT_COOLDOWN_MS - elapsed, 'Preventing API rate-limit — fetching in');
+      }
+
+      try {
+        el.loadingSubstatus.textContent = attempt > 0
+          ? `Retrying GDELT Global & India News API (attempt ${attempt + 1}/3)...`
+          : 'Connecting directly to GDELT Global & India News API...';
+        const res = await fetchWithTimeout(url, 18000);
+        const text = (await res.text()).trim();
+        lastGdeltCallTs = Date.now();
+
+        if (!text) return [];
+        if (!text.startsWith('{')) {
+          if (attempt < 2) {
+            await sleepWithCountdown(6500, 'GDELT rate-limit pause — auto-retrying in');
+            return fetchGdeltBatch(url, regionHint, attempt + 1);
+          }
+          throw new Error(text.slice(0, 120));
+        }
+        const json = JSON.parse(text);
+        return mapGdeltArticles(json.articles || [], regionHint);
+      } catch (err) {
+        lastGdeltCallTs = Date.now();
+        const msg = String(err && err.message ? err.message : err);
+        const isTransient = /failed to fetch|networkerror|abort|429|502|503|504|timeout/i.test(msg);
+        if (attempt < 2 && isTransient) {
+          await sleepWithCountdown(6500, 'API busy / rate-limited — auto-retrying in');
+          return fetchGdeltBatch(url, regionHint, attempt + 1);
+        }
+        throw err;
+      }
+    }
+
+    function buildWaybackUrl(origUrl, pubDate) {
+      const m = String(pubDate || '').match(/(19\d{2}|20\d{2})/);
+      const prefix = m ? m[1] : '*';
+      return `https://web.archive.org/web/${prefix}/${origUrl}`;
+    }
+
+    async function fetchInternetArchiveNews(topic, fromIso, toIso) {
+      const clean = String(topic || '').replace(/"/g, '').trim();
+      if (!clean) return [];
+      const dateFilter = (fromIso && toIso) ? ` AND date:[${fromIso} TO ${toIso}]` : '';
+      const q = `(title:("${clean}") OR description:("${clean}") OR subject:("${clean}")) AND mediatype:(texts OR news)${dateFilter}`;
+      const url = `https://archive.org/advancedsearch.php?q=${encodeURIComponent(q)}&fl[]=identifier&fl[]=title&fl[]=description&fl[]=date&fl[]=creator&sort[]=date+desc&rows=12&output=json`;
+      const res = await fetchWithTimeout(url, 15000);
+      const data = await res.json();
+      const docs = data?.response?.docs || [];
+      return docs.map((d, i) => {
+        const title = Array.isArray(d.title) ? d.title[0] : (d.title || d.identifier || '');
+        const descRaw = Array.isArray(d.description) ? d.description[0] : (d.description || '');
+        const desc = String(descRaw).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220);
+        const rawDate = String(d.date || '').slice(0, 10);
+        const creator = Array.isArray(d.creator) ? d.creator[0] : (d.creator || 'Internet Archive');
+        const link = `https://archive.org/details/${encodeURIComponent(d.identifier)}`;
+        const isIndia = INDIA_KEYWORDS.some(k => `${title} ${desc} ${creator}`.toLowerCase().includes(k)) || /\b(india|indian|kargil|delhi|mumbai|hindu|jagran|bhaskar)\b/i.test(`${title} ${desc}`);
+        return {
+          id: `ia-${i}-${String(d.identifier || '').slice(0, 18)}`,
+          title: String(title).trim(),
+          summary: desc || `Archived print newspaper / historical report on Internet Archive (${rawDate || 'Archive'}).`,
+          source: `Internet Archive (${creator})`,
+          domain: 'archive.org',
+          region: isIndia ? 'India' : 'Global',
+          type: 'Article',
+          resource: 'Internet Archive (Historical Scan)',
+          pubDate: rawDate,
+          timestamp: rawDate ? (Date.parse(rawDate) || 0) : 0,
+          link,
+          isGolden: false,
+          signalScore: 0,
+          verificationStatus: 'Pending AI',
+          authenticityReason: '',
+          newspaperFocus: '',
+          whyItMatters: '',
+          corroboratedBy: []
+        };
+      }).filter(a => a.title && a.link);
+    }
+
+    const DIRECT_RSS_FALLBACKS = [
+      { name: 'The Hindu', region: 'India', url: 'https://www.thehindu.com/news/feeder/default.rss' },
+      { name: 'The Indian Express', region: 'India', url: 'https://indianexpress.com/feed/' },
+      { name: 'The Times of India', region: 'India', url: 'https://timesofindia.indiatimes.com/rssfeedstopstories.cms' },
+      { name: 'Mint (Livemint)', region: 'India', url: 'https://www.livemint.com/rss/news' },
+      { name: 'BBC News', region: 'Global', url: 'https://feeds.bbci.co.uk/news/world/rss.xml' },
+      { name: 'The Guardian', region: 'Global', url: 'https://www.theguardian.com/world/rss' },
+      { name: 'Al Jazeera', region: 'Global', url: 'https://www.aljazeera.com/xml/rss/all.xml' }
+    ];
+
+    async function fetchDirectRssFallback(category, regionFilter) {
+      const kwList = category.toLowerCase().split(/[\s&,\/|]+/).filter(w => w.length >= 3);
+      const targets = DIRECT_RSS_FALLBACKS.filter(f =>
+        regionFilter === 'all' || (regionFilter === 'india' && f.region === 'India') || (regionFilter === 'global' && f.region === 'Global')
+      );
+      const results = [];
+      await Promise.all(targets.map(async (feed) => {
+        try {
+          const apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(feed.url);
+          const res = await fetchWithTimeout(apiUrl, 10000);
+          const data = await res.json();
+          if (data && data.status === 'ok' && Array.isArray(data.items)) {
+            data.items.forEach((item, idx) => {
+              const info = classifyArticle(item.title, feed.name, item.description || item.content, {
+                regionHint: feed.region,
+                sourceCountry: feed.region === 'India' ? 'India' : 'International',
+                url: item.link || '',
+                typeHint: 'News'
+              });
+              const hay = (info.title + ' ' + info.summary).toLowerCase();
+              const needed = kwList.length <= 2 ? kwList.length : Math.ceil(kwList.length * 0.75);
+              const hits = kwList.filter(k => hay.includes(k)).length;
+              if (kwList.length === 0 || hits >= needed) {
+                results.push({
+                  id: `rss-${feed.name.replace(/\s/g, '')}-${idx}`,
+                  title: info.title,
+                  summary: info.summary,
+                  source: feed.name,
+                  domain: '',
+                  region: feed.region,
+                  type: info.type,
+                  resource: `${feed.name} Direct RSS`,
+                  pubDate: item.pubDate || '',
+                  timestamp: item.pubDate ? (Date.parse(item.pubDate.replace(' ', 'T') + 'Z') || Date.parse(item.pubDate) || 0) : 0,
+                  link: item.link || '',
+                  isGolden: false,
+                  signalScore: 0,
+                  verificationStatus: 'Pending AI',
+                  authenticityReason: '',
+                  newspaperFocus: '',
+                  whyItMatters: '',
+                  corroboratedBy: []
+                });
+              }
+            });
+          }
+        } catch (e) {}
+      }));
+      return results;
+    }
+
+    function parseRssXmlText(xmlText, feedMeta) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(xmlText, 'text/xml');
+      const items = Array.from(doc.querySelectorAll('item'));
+      return items.map((item, idx) => {
+        const rawTitle = item.querySelector('title')?.textContent || '';
+        const link = item.querySelector('link')?.textContent?.trim() || '';
+        const pubDate = item.querySelector('pubDate')?.textContent?.trim() || '';
+        const rawDesc = item.querySelector('description')?.textContent || '';
+        const sourceTag = item.querySelector('source')?.textContent?.trim() || '';
+        const info = classifyArticle(rawTitle, sourceTag, rawDesc, { ...feedMeta, url: link });
+        return {
+          id: `${feedMeta.regionHint}-${idx}-${info.title.slice(0, 32).replace(/[^a-zA-Z0-9]/g, '')}`,
+          title: info.title,
+          summary: info.summary,
+          source: info.source,
+          domain: '',
+          region: info.region,
+          type: info.type,
+          resource: feedMeta.resource,
+          pubDate: pubDate,
+          timestamp: pubDate ? (Date.parse(pubDate) || 0) : 0,
+          link: link,
+          isGolden: false,
+          signalScore: 0,
+          verificationStatus: 'Pending AI',
+          authenticityReason: '',
+          newspaperFocus: '',
+          whyItMatters: '',
+          corroboratedBy: []
+        };
+      }).filter(a => a.title && a.link);
+    }
+
+    function canonicalizeUrl(u) {
+      try {
+        const p = new URL(u);
+        return (p.hostname.replace(/^www\./, '') + p.pathname.replace(/\/amp\/?$/i, '').replace(/\/+$/, '')).toLowerCase();
+      } catch (e) {
+        return String(u || '').toLowerCase();
+      }
+    }
+
+    function deduplicateAndSort(items, limit) {
+      const seenUrls = new Set();
+      const seenDitto = new Set();
+      const unique = [];
+      for (const item of items) {
+        const cUrl = canonicalizeUrl(item.link);
+        const dayKey = item.timestamp ? new Date(item.timestamp).toISOString().slice(0, 10) : String(item.pubDate || '').slice(0, 10);
+        const normTitle = String(item.title || '').toLowerCase().replace(/[^a-z0-9\u0900-\u097f]/g, '').slice(0, 65);
+        const srcKey = String(item.source || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        // Ditto-only check: same URL OR same newspaper + ditto headline on same day (keeps different-date follow-up stories!)
+        const dittoKey = `${srcKey}|${dayKey}|${normTitle}`;
+        if ((cUrl && seenUrls.has(cUrl)) || (normTitle && seenDitto.has(dittoKey))) continue;
+        if (cUrl) seenUrls.add(cUrl);
+        if (normTitle) seenDitto.add(dittoKey);
+        unique.push(item);
+      }
+      unique.sort((a, b) => {
+        if (a.isGolden !== b.isGolden) return a.isGolden ? -1 : 1;
+        if (a.signalScore !== b.signalScore) return b.signalScore - a.signalScore;
+        return b.timestamp - a.timestamp;
+      });
+      return unique.slice(0, limit);
+    }
+
+    // ==================== BUILT-IN GEMINI AI GOLDEN NEWS AGENT ====================
+    async function runGeminiAiAgent() {
+      const apiKey = el.geminiApiKeyInput.value.trim();
+      if (!apiKey) {
+        showToast('Paste your free Gemini API key to run the AI Agent');
+        el.geminiApiKeyInput.focus();
+        return;
+      }
+      if (state.articles.length === 0) {
+        showToast('Extract news first, then run the AI Agent');
+        return;
+      }
+
+      const model = (el.geminiModelSelect ? el.geminiModelSelect.value : '') || 'gemini-4-hydrogen';
+      const batch = state.articles.slice(0, 35);
+      const payload = batch.map((a, idx) => ({
+        id: idx,
+        newspaper: a.source,
+        domain: a.domain,
+        region: a.region,
+        type: a.type,
+        published: a.pubDate,
+        headline: a.title,
+        url_path: a.link.slice(0, 180),
+        snippet: a.summary.slice(0, 300)
+      }));
+
+      const prompt = `You are a senior investigative news editor and fact-checking agent for the category: "${state.lastQuery.category || 'News'}".
+Analyze these ${payload.length} extracted Indian and Global newspaper articles:
+
+1. AUTHENTICATE each item:
+   - "Corroborated": 2 or more independent reputable newspapers in this batch report the same core event.
+   - "Verified": Credible mainstream journalism relevant to "${state.lastQuery.category}".
+   - "Needs Check": Lesser-known outlet or unconfirmed claim.
+   - "Rejected": Clickbait, PR fluff, spam, or off-topic match.
+2. EXTRACT NEWSPAPER FOCUS:
+   - In 1 sharp sentence, state the exact angle/focus of that specific newspaper's story.
+3. SELECT GOLDEN NEWS (is_golden = true):
+   - Mark ONLY the highest-signal, genuinely important, to-the-point stories & key editorials (signal_score 7 to 10), deduplicating identical coverage unless another newspaper adds a distinct angle.
+4. WRITE TO-THE-POINT SUMMARIES:
+   - Give a crisp 1-2 sentence factual summary strictly grounded in the provided data, plus a 1-sentence "why_it_matters" takeaway.
+5. Write a 3-sentence "executive_overview" summarizing the biggest verified developments.
+
+Return ONLY valid JSON:
+{
+  "executive_overview": "string",
+  "evaluations": [
+    {
+      "id": 0,
+      "verification_status": "Corroborated | Verified | Needs Check | Rejected",
+      "authenticity_reason": "short concrete reason",
+      "corroborated_by": ["Newspaper Name"],
+      "is_golden": true,
+      "signal_score": 9,
+      "newspaper_focus": "exact angle of this newspaper",
+      "golden_summary": "concise factual summary",
+      "why_it_matters": "1-sentence practical takeaway"
+    }
+  ]
+}
+
+Articles:
+${JSON.stringify(payload)}`;
+
+      el.runAiAgentBtn.disabled = true;
+      el.extractBtn.disabled = true;
+      el.loadingBox.classList.remove('hidden');
+      el.loadingStatus.textContent = `AI Agent (${model}) verifying ${batch.length} articles...`;
+      el.loadingSubstatus.textContent = 'Checking authenticity, cross-source corroboration, newspaper focus & selecting Golden News...';
+
+      try {
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const aiGenConfig = { responseMimeType: 'application/json', thinkingConfig: { thinkingLevel: model.includes('flash-lite') ? 'minimal' : 'low' } };
+        const res = await fetchWithTimeout(endpoint, 120000, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: aiGenConfig
+          })
+        });
+
+        const data = await res.json();
+        const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        if (!rawText) throw new Error('Empty AI response');
+
+        const parsed = JSON.parse(rawText);
+        const evalMap = new Map();
+        (parsed.evaluations || []).forEach(ev => evalMap.set(Number(ev.id), ev));
+
+        batch.forEach((a, idx) => {
+          const ev = evalMap.get(idx);
+          if (!ev) return;
+          a.verificationStatus = ev.verification_status || 'Needs Check';
+          a.authenticityReason = ev.authenticity_reason || '';
+          a.corroboratedBy = Array.isArray(ev.corroborated_by) ? ev.corroborated_by : [];
+          a.isGolden = Boolean(ev.is_golden);
+          a.signalScore = Number(ev.signal_score) || 5;
+          a.newspaperFocus = ev.newspaper_focus || '';
+          if (ev.golden_summary) a.summary = ev.golden_summary;
+          a.whyItMatters = ev.why_it_matters || '';
+        });
+
+        state.executiveBrief = parsed.executive_overview || '';
+        state.aiAnalyzed = true;
+        state.articles.sort((a, b) => {
+          if (a.isGolden !== b.isGolden) return a.isGolden ? -1 : 1;
+          if (a.signalScore !== b.signalScore) return b.signalScore - a.signalScore;
+          return b.timestamp - a.timestamp;
+        });
+
+        renderResults();
+        const goldCount = state.articles.filter(a => a.isGolden && a.verificationStatus !== 'Rejected').length;
+        showToast(`AI Agent complete! ${goldCount} Golden News stories selected.`);
+      } catch (err) {
+        el.errorBox.classList.remove('hidden');
+        el.errorTitle.textContent = 'AI Agent could not complete verification';
+        el.errorMessage.textContent = `Reason: ${err.message}. Verify your Gemini API key is valid and has quota available.`;
+      } finally {
+        el.loadingBox.classList.add('hidden');
+        el.runAiAgentBtn.disabled = false;
+        el.extractBtn.disabled = false;
+      }
+    }
+
+    function extractJsonFromText(rawText) {
+      const trimmed = (rawText || '').trim();
+      const fenceMatch = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/i);
+      const candidate = fenceMatch ? fenceMatch[1].trim() : trimmed;
+      const firstBrace = candidate.indexOf('{');
+      const lastBrace = candidate.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace > firstBrace) {
+        return JSON.parse(candidate.slice(firstBrace, lastBrace + 1));
+      }
+      return JSON.parse(candidate);
+    }
+
+    async function extractWithGeminiGoogleSearch(category, tfLabel, region, limit, includeEditorials, excludeTitles) {
+      const apiKey = el.geminiApiKeyInput.value.trim();
+      const model = (el.extractModelSelect ? el.extractModelSelect.value : '') || 'gemini-3.5-flash-lite';
+      const todayIso = new Date().toISOString().slice(0, 10);
+      const focusedDomainsArr = Array.from(state.focusedDomains);
+      const hasFocused = focusedDomainsArr.length > 0;
+      const contentType = el.contentTypeSelect ? el.contentTypeSelect.value : 'all';
+
+      const sourceRule = hasFocused
+        ? `STRICT SOURCE LOCK: Search ONLY on ${focusedDomainsArr.map(d => 'site:' + d).join(' OR ')}. Do NOT search or include ANY other website or newspaper. If no matching text article exists on these selected site(s), return {"articles": []}.`
+        : (region === 'india'
+          ? 'Search ONLY reputable Indian newspapers (The Hindu, Indian Express, India Today, Mint, Economic Times, TOI, HT, Business Standard, NDTV, ThePrint, Scroll).'
+          : (region === 'global'
+            ? 'Search ONLY reputable international/global newspapers (BBC, Reuters, The Guardian, NYT, Washington Post, FT, Al Jazeera, Bloomberg, AP, DW).'
+            : 'Include reputable Indian AND Global newspapers.'));
+
+      const typeRule = contentType === 'news' ? 'Return ONLY News reports (type: "News").'
+        : contentType === 'article' ? 'Return ONLY in-depth Articles/Explainers (type: "Article").'
+        : contentType === 'editorial' ? 'Return ONLY Editorials/Opinion columns (type: "Editorial").'
+        : contentType === 'blog' ? 'Return ONLY Expert Blogs/Essays (type: "Blog").'
+        : (includeEditorials ? 'Include News, Articles, Editorials, or Blogs (label exact type).' : 'Return News reports (type: "News").');
+
+      const langMode = el.languageSelect ? el.languageSelect.value : 'en_hi';
+      const langRule = langMode === 'en'
+        ? 'LANGUAGE LOCK: Return ONLY English-language newspapers/articles. Strictly exclude Hindi, Tamil, Odia, Telugu, or any other language.'
+        : (langMode === 'hi'
+          ? 'LANGUAGE LOCK: Return ONLY Hindi-language newspapers/articles (Devanagari Hindi — e.g., Dainik Bhaskar, Jagran, Amar Ujala, Navbharat Times, Live Hindustan, Jansatta, Aaj Tak, BBC Hindi). Strictly exclude English, Tamil, Odia, or other languages.'
+          : 'LANGUAGE LOCK (ENGLISH + HINDI BOTH REQUIRED): You MUST perform TWO searches — (1) an English Google Search AND (2) a Hindi Google Search (translate the topic into Hindi keywords to find Dainik Bhaskar, Jagran, Amar Ujala, Navbharat Times, Live Hindustan, Aaj Tak, BBC Hindi, ABP Live). Return at least 10-14 English articles PLUS 4-6 Hindi articles in Devanagari. Strictly EXCLUDE Tamil, Odia, Telugu, Bengali, Malayalam, or other regional languages.');
+
+      const targetCount = hasFocused ? Math.min(limit, 14) : Math.min(Math.max(limit, 20), 28);
+      const excludeNote = (excludeTitles && excludeTitles.length > 0)
+        ? `\n- LOAD MORE MODE: Do NOT repeat these already-extracted headlines: ${excludeTitles.slice(0, 25).join(' | ')}. Find additional unseen newspapers/dates for the EXACT SAME topic.`
+        : '';
+
+      const prompt = `Today: ${todayIso}. Perform ONE comprehensive, thorough Google Search covering ALL relevant newspapers & portals (both major dailies AND credible niche/discovered outlets) for the real-world CONTEXT & SYNONYMS of "${category}".
+- Topic: "${category}" | Timeframe: "${tfLabel}"
+- HISTORICAL ARCHIVES (if timeframe includes older years like 1990s–2015): Actively search Google News Archive (site:news.google.com/newspapers), Internet Archive (site:archive.org), Wayback Machine (site:web.archive.org), and surviving archives (news.bbc.co.uk, rediff.com, frontline.thehindu.com, indiatoday.in, pib.gov.in) so real working historical links are returned.
+- ${sourceRule}
+- ${typeRule}
+- ${langRule}
+- FOLLOW-UPS ALLOWED: If the same newspaper published an earlier source-based report AND a later confirmed update on a different date, include BOTH (remove only exact ditto duplicates).
+- TEXT ARTICLES ONLY: Strictly EXCLUDE YouTube, video pages, /videos/, /watch, Reels, or Shorts.
+- Return ALL genuine matching articles found (up to ${targetCount}, or {"articles": []} if none exist).${excludeNote}
+
+Return ONLY JSON in a \`\`\`json block:
+\`\`\`json
+{"articles":[{"title":"Headline","source":"Newspaper Name","region":"India|Global","type":"News|Article|Editorial|Blog","published":"YYYY-MM-DDTHH:MM:SSZ or YYYY-MM-DD","summary":"1-2 sentence neutral summary","url":"https://..."}]}
+\`\`\``;
+
+      el.loadingStatus.textContent = hasFocused
+        ? `Searching ONLY ${focusedDomainsArr.map(formatDomainAsName).join(', ')} for "${category}"...`
+        : `Context-Aware Search for "${category}" (${tfLabel})...`;
+      el.loadingSubstatus.textContent = `Using ${model} (low-token mode, text articles only)...`;
+
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+      const tLevel = 'low';
+      const genConfig = { thinkingConfig: { thinkingLevel: tLevel } };
+      const res = await fetchWithTimeout(endpoint, 120000, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          tools: [{ google_search: {} }],
+          generationConfig: genConfig
+        })
+      });
+
+      const data = await res.json();
+      const parts = data?.candidates?.[0]?.content?.parts || [];
+      const fullText = parts.map(p => p.text || '').join('\n').trim();
+      if (!fullText) return { articles: [], executiveBrief: '' };
+
+      const chunks = data?.candidates?.[0]?.groundingMetadata?.groundingChunks || [];
+      const groundedWebs = chunks
+        .map(c => c && c.web ? { uri: c.web.uri || '', title: (c.web.title || '').toLowerCase() } : null)
+        .filter(Boolean);
+
+      const parsed = extractJsonFromText(fullText);
+      const rawArticles = Array.isArray(parsed.articles) ? parsed.articles : [];
+
+      const mapped = rawArticles.map((item, idx) => {
+        const srcName = (item.source || 'News Source').trim();
+        const srcLow = srcName.toLowerCase();
+        let link = (item.url || '').trim();
+        const matchedChunk = groundedWebs.find(g =>
+          !isVideoUrlOrSource(g.uri, g.title) && (
+            (link && g.uri === link) ||
+            (g.title && (g.title.includes(srcLow.split(' ')[0]) || srcLow.includes(g.title.split('.')[0])))
+          )
+        );
+        if ((!link || !link.startsWith('http') || isVideoUrlOrSource(link, srcName)) && matchedChunk) {
+          link = matchedChunk.uri;
+        }
+        if (!link || !link.startsWith('http')) return null;
+
+        let dom = '';
+        try { dom = new URL(link).hostname.replace(/^www\./, ''); } catch (e) {}
+        const isIndia = String(item.region || '').toLowerCase() === 'india' || INDIA_KEYWORDS.some(k => srcLow.includes(k)) || dom.endsWith('.in');
+        const pubStr = item.published || todayIso;
+
+        return {
+          id: `gem-${idx}-${(item.title || '').slice(0, 28).replace(/[^a-zA-Z0-9]/g, '')}`,
+          title: (item.title || '').trim(),
+          summary: (item.summary || '').trim(),
+          source: srcName,
+          domain: dom,
+          region: isIndia ? 'India' : 'Global',
+          type: (() => {
+            const t = String(item.type || '').toLowerCase();
+            if (t.includes('editorial') || t.includes('opinion')) return 'Editorial';
+            if (t.includes('blog') || t.includes('essay')) return 'Blog';
+            if (t.includes('article') || t.includes('explainer') || t.includes('analysis')) return 'Article';
+            return 'News';
+          })(),
+          resource: 'Google Search Grounding (Text)',
+          pubDate: pubStr,
+          timestamp: Date.parse(pubStr) || Date.now() - idx * 60000,
+          link: link,
+          isGolden: false,
+          signalScore: 0,
+          verificationStatus: 'Pending AI',
+          authenticityReason: '',
+          newspaperFocus: '',
+          whyItMatters: '',
+          corroboratedBy: []
+        };
+      }).filter(Boolean);
+
+      return {
+        articles: filterTextAndSourceRules(mapped, region),
+        executiveBrief: ''
+      };
+    }
+
+    async function runExtraction(forceRefresh, appendMode) {
+      const category = el.categoryInput.value.trim();
+      if (!category) {
+        showToast('Please enter a category or click a quick topic');
+        el.categoryInput.focus();
+        return;
+      }
+
+      const region = el.regionSelect.value;
+      const limit = parseInt(el.limitSelect.value, 10) || 40;
+      const plan = buildGdeltUrl(category, region, Math.max(limit * 2, 100));
+
+      state.lastQuery = { category: plan.cleanCat, timeframeLabel: plan.tfLabel, region };
+      state.executiveBrief = '';
+      state.aiAnalyzed = false;
+      updateLiveQueryPreview();
+
+      el.extractBtn.disabled = true;
+      el.runAiAgentBtn.disabled = true;
+      if (el.loadMoreNewsBtn) el.loadMoreNewsBtn.disabled = true;
+      el.errorBox.classList.add('hidden');
+      el.loadingBox.classList.remove('hidden');
+      el.loadingStatus.textContent = `Extracting "${plan.cleanCat}" (${plan.tfLabel})...`;
+      el.loadingSubstatus.textContent = 'Connecting directly to GDELT Global & India News API...';
+
+      let collected = [];
+      let lastError = '';
+
+      const hasGeminiKey = Boolean(el.geminiApiKeyInput.value.trim());
+
+      // STEP 1 (FREE FIRST): Try GDELT DOC 2.0 (up to 3 attempts) to save Gemini API quota
+      const fullCacheKey = `${plan.cleanCat}|${plan.tfLabel}|${region}|${el.contentTypeSelect.value}|${el.languageSelect.value}|${Array.from(state.focusedDomains).sort().join(',')}`;
+      const cacheKey = fullCacheKey;
+      const cached = queryCache.get(cacheKey);
+      if (!forceRefresh && !appendMode && cached && (Date.now() - cached.ts) < 600000) {
+        state.articles = cached.items.map(item => ({ ...item }));
+        populateSourceFilter();
+        el.loadingBox.classList.add('hidden');
+        el.extractBtn.disabled = false;
+        el.runAiAgentBtn.disabled = false;
+        if (el.loadMoreNewsBtn) el.loadMoreNewsBtn.disabled = false;
+        el.emptyState.classList.add('hidden');
+        el.resultsSection.classList.remove('hidden');
+        renderResults();
+        showToast(`Loaded ${state.articles.length} cached articles (consistent list — 0 tokens spent). Click Force Refresh for brand-new fetch.`);
+        return;
+      }
+      if (!appendMode) {
+        const isHistoricalCustom = el.timeframeSelect.value === 'custom' && el.dateTo.value && (Date.parse(el.dateTo.value) < (Date.now() - 95 * 86400000));
+        if (isHistoricalCustom) {
+          el.loadingSubstatus.textContent = `Historical range (${el.dateFrom.value} to ${el.dateTo.value}) — querying Internet Archive & historical search...`;
+          try {
+            const iaItems = await fetchInternetArchiveNews(plan.cleanCat, el.dateFrom.value, el.dateTo.value);
+            collected.push(...iaItems);
+          } catch (e) {}
+        } else {
+          try {
+            collected = await fetchGdeltBatch(plan.url, region, 0);
+            if (collected.length > 0) {
+              queryCache.set(cacheKey, { ts: Date.now(), items: collected.map(item => ({ ...item })) });
+            }
+          } catch (err) {
+            lastError = err.message || 'Network error';
+          }
+        }
+      }
+
+      // STEP 2 (FREE BACKUP): Try Direct Newspaper RSS feeds if GDELT returned nothing/failed
+      if (collected.length === 0 && state.focusedDomains.size === 0) {
+        el.loadingSubstatus.textContent = 'GDELT unavailable — trying direct newspaper RSS feeds (The Hindu, Indian Express, TOI, Mint, BBC, Guardian, Al Jazeera)...';
+        try {
+          collected = await fetchDirectRssFallback(plan.cleanCat, region);
+        } catch (err2) {
+          if (!lastError) lastError = err2.message;
+        }
+      }
+
+      collected = filterTextAndSourceRules(collected, region);
+      const wordCount = plan.cleanCat.trim().split(/\s+/).length;
+      const langIsHindi = el.languageSelect && (el.languageSelect.value === 'hi' || el.languageSelect.value === 'en_hi');
+      const needsContextBypass = Boolean(appendMode) || collected.length === 0 || (wordCount >= 3 && collected.length < 4) || (langIsHindi && collected.length < 6);
+
+      // STEP 3 (AUTOMATIC CONTEXT-AWARE BYPASS): Runs if GDELT/RSS failed OR returned <3 items on a specific multi-word event
+      if (needsContextBypass) {
+        if (hasGeminiKey) {
+          try {
+            el.loadingSubstatus.textContent = 'GDELT & RSS failed — bypassing via Gemini Live Google Search...';
+            const excludeTitles = appendMode ? state.articles.map(a => a.title) : [];
+            const gemResult = await extractWithGeminiGoogleSearch(
+              plan.cleanCat,
+              plan.tfLabel,
+              region,
+              limit,
+              el.includeEditorials.checked,
+              excludeTitles
+            );
+            const basePool = appendMode ? [...state.articles, ...gemResult.articles] : [...gemResult.articles, ...collected];
+            const merged = filterTextAndSourceRules(basePool, region);
+            if (merged.length === 0) {
+              el.loadingBox.classList.add('hidden');
+              el.extractBtn.disabled = false;
+              el.runAiAgentBtn.disabled = false;
+              el.errorBox.classList.remove('hidden');
+              const lockedNames = Array.from(state.focusedDomains).map(formatDomainAsName).join(', ');
+              el.errorTitle.textContent = lockedNames
+                ? `No matching text news/articles found in ${lockedNames}`
+                : 'No matching text news/articles found';
+              el.errorMessage.textContent = lockedNames
+                ? `Searched strictly on ${lockedNames} for "${plan.cleanCat}" (${plan.tfLabel}) with zero video links. Try a wider timeframe (e.g., Last 30 Days) or clear the source filter to search all newspapers.`
+                : `No readable text articles matched "${plan.cleanCat}" in ${plan.tfLabel}. Try widening the timeframe.`;
+              return;
+            }
+            state.articles = deduplicateAndSort(merged, appendMode ? Math.max(limit, state.articles.length + 20) : limit);
+            queryCache.set(cacheKey, { ts: Date.now(), items: state.articles.map(item => ({ ...item })) });
+            autoRegisterDiscoveredSources(state.articles);
+            state.executiveBrief = '';
+            state.aiAnalyzed = false;
+            populateSourceFilter();
+            el.loadingBox.classList.add('hidden');
+            el.extractBtn.disabled = false;
+            el.runAiAgentBtn.disabled = false;
+            el.emptyState.classList.add('hidden');
+            el.resultsSection.classList.remove('hidden');
+            renderResults();
+            showToast(`${state.articles.length} text articles extracted — click "Run AI Agent" anytime for Golden News.`);
+            return;
+          } catch (gemErr) {
+            lastError = 'Gemini Search bypass failed: ' + (gemErr.message || 'error');
+          }
+        }
+
+        el.loadingBox.classList.add('hidden');
+        el.extractBtn.disabled = false;
+        el.runAiAgentBtn.disabled = false;
+        el.errorBox.classList.remove('hidden');
+        el.errorTitle.textContent = 'Free GDELT (3 attempts) & Direct RSS failed';
+        el.errorMessage.textContent = hasGeminiKey
+          ? `Fallback also failed (${lastError}). Please check your Gemini API key and click Retry.`
+          : `All 3 free GDELT attempts and Direct RSS feeds failed (${lastError || 'rate-limited'}). Paste your free Gemini API key in the AI Agent bar above so the tool can automatically bypass this via Live Google Search.`;
+        return;
+      }
+
+      el.loadingBox.classList.add('hidden');
+      el.extractBtn.disabled = false;
+      el.runAiAgentBtn.disabled = false;
+      if (el.loadMoreNewsBtn) el.loadMoreNewsBtn.disabled = false;
+
+      if (region === 'global') {
+        const onlyGlobal = collected.filter(a => a.region === 'Global');
+        if (onlyGlobal.length > 0) collected = onlyGlobal;
+      }
+      if (!el.includeEditorials.checked && el.contentTypeSelect.value === 'all') {
+        collected = collected.filter(a => a.type === 'News');
+      }
+
+      state.articles = deduplicateAndSort(collected, limit);
+      queryCache.set(cacheKey, { ts: Date.now(), items: state.articles.map(item => ({ ...item })) });
+      autoRegisterDiscoveredSources(state.articles);
+      populateSourceFilter();
+      el.emptyState.classList.add('hidden');
+      el.resultsSection.classList.remove('hidden');
+      renderResults();
+
+      showToast(`${state.articles.length} live articles extracted — click "Run AI Agent" anytime to verify & filter Golden News.`);
+    }
+
+    // ==================== FILTERING & RENDERING ====================
+    function populateSourceFilter() {
+      const sources = Array.from(new Set(state.articles.map(a => a.source))).sort();
+      el.filterSource.innerHTML = '<option value="all">All Newspapers (' + sources.length + ')</option>' +
+        sources.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`).join('');
+    }
+
+    function getFilteredArticles() {
+      const q = el.filterQuality.value;
+      const r = el.filterRegion.value;
+      const langFlt = el.filterLanguage ? el.filterLanguage.value : 'all';
+      const t = el.filterType.value;
+      const s = el.filterSource.value;
+      const starredOnly = el.filterStarred.checked;
+      const kw = el.filterKeyword.value.trim().toLowerCase();
+
+      return state.articles.filter(a => {
+        if (q === 'verified' && a.verificationStatus === 'Rejected') return false;
+        if (q === 'golden' && (!a.isGolden || a.verificationStatus === 'Rejected')) return false;
+        if (r !== 'all' && a.region !== r) return false;
+        if (langFlt !== 'all') {
+          const isHi = DEVANAGARI_SCRIPT.test(`${a.title || ''} ${a.summary || ''}`) || HINDI_PAPERS.some(hp => String(a.link || '').toLowerCase().includes(hp.domain));
+          if (langFlt === 'Hindi' && !isHi) return false;
+          if (langFlt === 'English' && isHi) return false;
+        }
+        if (t !== 'all' && a.type !== t) return false;
+        if (s !== 'all' && a.source !== s) return false;
+        if (starredOnly && !state.starredIds.has(a.id)) return false;
+        if (kw) {
+          const hay = `${a.title} ${a.source} ${a.summary} ${a.newspaperFocus} ${a.whyItMatters}`.toLowerCase();
+          if (!hay.includes(kw)) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderResults() {
+      const all = state.articles.filter(a => a.verificationStatus !== 'Rejected');
+      const filtered = getFilteredArticles();
+
+      el.execBriefBox.classList.toggle('hidden', !state.executiveBrief);
+      el.execBriefText.textContent = state.executiveBrief;
+
+      el.kpiTotal.textContent = all.length;
+      el.kpiGolden.textContent = all.filter(a => a.isGolden).length;
+      el.kpiQueryMeta.textContent = `${state.lastQuery.category} • ${state.lastQuery.timeframeLabel}`;
+      const qEnc = encodeURIComponent(state.lastQuery.category || '');
+      const gna = document.getElementById('linkGoogleNewsArchive');
+      const iaL = document.getElementById('linkInternetArchive');
+      if (gna) gna.href = `https://www.google.com/search?tbm=bks&tbs=bkt:s&q=${qEnc}+site:news.google.com/newspapers`;
+      if (iaL) iaL.href = `https://archive.org/search?query=${qEnc}&and[]=mediatype:texts`;
+      el.kpiIndia.textContent = all.filter(a => a.region === 'India').length;
+      el.kpiGlobal.textContent = all.filter(a => a.region === 'Global').length;
+      el.kpiEditorials.textContent = all.filter(a => a.type !== 'News').length;
+      el.visibleCountLabel.textContent = `Showing ${filtered.length} of ${state.articles.length}`;
+
+      if (filtered.length === 0) {
+        el.newsTableBody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-10 text-center text-sm text-slate-500">
+              No articles match the current filters. Try clearing or adjusting your filters.
+            </td>
+          </tr>`;
+      } else {
+        el.newsTableBody.innerHTML = filtered.map((a, idx) => {
+          const isStarred = state.starredIds.has(a.id);
+          const goldBadge = a.isGolden
+            ? '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-600 text-white mb-1">GOLDEN NEWS</span>'
+            : '';
+          const verBadge = state.aiAnalyzed
+            ? `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-700 mb-1">${escapeHtml(a.verificationStatus)}${a.signalScore ? ' • ' + a.signalScore + '/10' : ''}</span>`
+            : '';
+          const regionBadge = a.region === 'India'
+            ? '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">India</span>'
+            : '<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">Global</span>';
+          const typeBadge = a.type !== 'News'
+            ? `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-50 text-amber-800 border border-amber-200 mt-1">${escapeHtml(a.type)}</span>`
+            : '';
+
+          const focusLine = a.newspaperFocus
+            ? `<p class="text-xs text-blue-700 font-medium"><strong>Focus:</strong> ${escapeHtml(a.newspaperFocus)}</p>`
+            : '';
+          const whyLine = a.whyItMatters
+            ? `<p class="text-[11px] text-emerald-700"><strong>Why It Matters:</strong> ${escapeHtml(a.whyItMatters)}</p>`
+            : '';
+
+          return `
+            <tr class="hover:bg-slate-50/80 transition align-top ${a.isGolden ? 'bg-amber-50/30' : ''}">
+              <td class="py-3.5 px-3 text-center text-xs font-semibold text-slate-400">${idx + 1}</td>
+              <td class="py-3.5 px-3 text-center no-print">
+                <button type="button" data-star-id="${escapeHtml(a.id)}" class="star-btn p-1 rounded-lg hover:bg-amber-50 transition" title="Bookmark article">
+                  <i data-lucide="star" class="w-4 h-4 ${isStarred ? 'fill-amber-400 text-amber-500' : 'text-slate-300'}"></i>
+                </button>
+              </td>
+              <td class="py-3.5 px-3">
+                <div class="flex flex-col items-start">${goldBadge}${verBadge}${regionBadge}${typeBadge}</div>
+              </td>
+              <td class="py-3.5 px-3">
+                <div class="font-semibold text-slate-900 text-xs sm:text-sm">${escapeHtml(a.source)}</div>
+              </td>
+              <td class="py-3.5 px-4 space-y-1">
+                <a href="${escapeHtml(a.link)}" target="_blank" rel="noopener noreferrer" class="font-semibold text-slate-900 hover:text-blue-700 leading-snug block">
+                  ${escapeHtml(a.title)}
+                </a>
+                ${focusLine}
+                <p class="text-xs text-slate-600 leading-relaxed">${escapeHtml(a.summary)}</p>
+                ${whyLine}
+              </td>
+              <td class="py-3.5 px-3 text-xs text-slate-500">${escapeHtml(a.resource)}</td>
+              <td class="py-3.5 px-3 text-xs text-slate-500 whitespace-nowrap">${formatDateCellHtml(a.pubDate)}</td>
+              <td class="py-3.5 px-3 text-right">
+                <div class="flex flex-col items-end gap-1">
+                  <a href="${escapeHtml(a.link)}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold transition">
+                    <span>Read</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </a>
+                  <a href="${escapeHtml(buildWaybackUrl(a.link, a.pubDate))}" target="_blank" rel="noopener noreferrer" title="If original link shows 404 Not Found, open its saved Wayback Machine snapshot" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-800 text-[10px] font-semibold transition">
+                    <span>Wayback</span>
+                    <i data-lucide="history" class="w-2.5 h-2.5"></i>
+                  </a>
+                </div>
+              </td>
+            </tr>`;
+        }).join('');
+      }
+
+      renderReportView(filtered);
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderReportView(items) {
+      el.reportHeading.textContent = `${state.lastQuery.category || 'Category'} — Golden News & Editorial Briefing`;
+      el.reportSubheading.textContent = `Timeframe: ${state.lastQuery.timeframeLabel || 'Custom'} • ${items.length} structured items`;
+      el.reportTimestamp.textContent = 'Generated: ' + new Date().toLocaleString('en-IN');
+
+      const golden = items.filter(a => a.isGolden);
+      const editorials = items.filter(a => !a.isGolden && a.type !== 'News');
+      const indiaNews = items.filter(a => !a.isGolden && a.region === 'India' && a.type === 'News');
+      const globalNews = items.filter(a => !a.isGolden && a.region === 'Global' && a.type === 'News');
+
+      const renderCard = (a, accent) => `
+        <article class="p-4 rounded-xl border ${accent} bg-white space-y-1.5 print-break-avoid">
+          <div class="flex flex-wrap items-center justify-between gap-2 text-xs">
+            <span class="font-bold text-slate-900">
+              ${a.isGolden ? '<span class="px-1.5 py-0.5 rounded bg-amber-600 text-white text-[10px] mr-1.5">GOLDEN</span>' : ''}
+              ${escapeHtml(a.source)} <span class="font-normal text-slate-500">(${escapeHtml(a.region)}${state.aiAnalyzed ? ' • ' + escapeHtml(a.verificationStatus) + ' • ' + a.signalScore + '/10' : ''})</span>
+            </span>
+            <span class="text-slate-400">${escapeHtml(formatDate(a.pubDate))}</span>
+          </div>
+          <h4 class="font-semibold text-sm text-slate-900 leading-snug">
+            <a href="${escapeHtml(a.link)}" target="_blank" rel="noopener noreferrer" class="hover:text-blue-700 hover:underline">${escapeHtml(a.title)}</a>
+          </h4>
+          ${a.newspaperFocus ? `<p class="text-xs text-blue-700"><strong>Newspaper Focus:</strong> ${escapeHtml(a.newspaperFocus)}</p>` : ''}
+          <p class="text-xs text-slate-600 leading-relaxed">${escapeHtml(a.summary)}</p>
+          ${a.whyItMatters ? `<p class="text-xs text-emerald-700"><strong>Why It Matters:</strong> ${escapeHtml(a.whyItMatters)}</p>` : ''}
+          <div class="flex items-center justify-between pt-1 text-[11px] text-slate-500">
+            <span>Resource: ${escapeHtml(a.resource)}</span>
+            <a href="${escapeHtml(a.link)}" target="_blank" rel="noopener noreferrer" class="text-blue-700 font-semibold hover:underline">Open Article &rarr;</a>
+          </div>
+        </article>`;
+
+      el.reportGoldenBlock.classList.toggle('hidden', golden.length === 0);
+      el.reportGoldenList.innerHTML = golden.map(a => renderCard(a, 'border-amber-300 bg-amber-50/30')).join('');
+
+      el.reportEditorialsBlock.classList.toggle('hidden', editorials.length === 0);
+      el.reportEditorialsList.innerHTML = editorials.map(a => renderCard(a, 'border-amber-200 bg-amber-50/30')).join('');
+
+      el.reportIndiaBlock.classList.toggle('hidden', indiaNews.length === 0);
+      el.reportIndiaList.innerHTML = indiaNews.map(a => renderCard(a, 'border-slate-200')).join('');
+
+      el.reportGlobalBlock.classList.toggle('hidden', globalNews.length === 0);
+      el.reportGlobalList.innerHTML = globalNews.map(a => renderCard(a, 'border-slate-200')).join('');
+    }
+
+    // ==================== SOURCES DIRECTORY ====================
+    function renderSourcesDirectory() {
+      const buildGrid = (papers, container, badgeColor) => {
+        container.innerHTML = papers.map(p => {
+          const selected = state.focusedDomains.has(p.domain);
+          return `
+            <button type="button" data-domain="${escapeHtml(p.domain)}" data-name="${escapeHtml(p.name)}"
+              class="source-card text-left p-3 rounded-xl border transition ${selected ? 'border-blue-600 bg-blue-50/70 ring-1 ring-blue-600' : 'border-slate-200 hover:border-slate-300 bg-white'}">
+              <div class="flex items-center justify-between gap-2">
+                <span class="font-semibold text-xs text-slate-900">${escapeHtml(p.name)}</span>
+                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded ${selected ? 'bg-blue-700 text-white' : badgeColor}">
+                  ${selected ? 'Selected' : 'Focus'}
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500 mt-0.5">${escapeHtml(p.type)} • ${escapeHtml(p.domain)}</p>
+            </button>`;
+        }).join('');
+      };
+
+      buildGrid(INDIA_PAPERS, el.indiaSourcesGrid, 'bg-emerald-50 text-emerald-700');
+      buildGrid(HINDI_PAPERS, el.hindiSourcesGrid, 'bg-amber-50 text-amber-800');
+      buildGrid(GLOBAL_PAPERS, el.globalSourcesGrid, 'bg-blue-50 text-blue-700');
+      if (state.discoveredSources.length === 0) {
+        el.discoveredSourcesGrid.innerHTML = '<p class="col-span-full text-xs text-slate-500">New newspapers found during your searches will automatically appear here.</p>';
+      } else {
+        buildGrid(state.discoveredSources, el.discoveredSourcesGrid, 'bg-purple-50 text-purple-700');
+      }
+      updateFocusedPapersBanner();
+    }
+
+    function updateFocusedPapersBanner() {
+      if (state.focusedDomains.size === 0) {
+        el.focusedPapersBanner.classList.add('hidden');
+        el.focusedPapersBanner.classList.remove('flex');
+      } else {
+        const allPapers = [...INDIA_PAPERS, ...HINDI_PAPERS, ...GLOBAL_PAPERS, ...state.discoveredSources];
+        const names = Array.from(state.focusedDomains).map(d => {
+          const found = allPapers.find(p => p.domain === d);
+          return found ? found.name : d;
+        });
+        el.focusedPapersList.textContent = names.join(', ');
+        el.focusedPapersBanner.classList.remove('hidden');
+        el.focusedPapersBanner.classList.add('flex');
+      }
+      updateLiveQueryPreview();
+    }
+
+    // ==================== EXPORTS ====================
+    function buildExportRows() {
+      const items = getFilteredArticles();
+      const headers = [
+        'No.', 'Golden News', 'Signal Score', 'Verification', 'Region', 'Type',
+        'Newspaper / Source', 'Headline', 'Newspaper Exact Focus', 'Summary',
+        'Why It Matters', 'Resource', 'Published Date', 'Article Link'
+      ];
+      const rows = items.map((a, idx) => [
+        String(idx + 1),
+        a.isGolden ? 'YES' : 'No',
+        a.signalScore ? `${a.signalScore}/10` : '',
+        a.verificationStatus,
+        a.region,
+        a.type,
+        a.source,
+        a.title,
+        a.newspaperFocus,
+        a.summary,
+        a.whyItMatters,
+        a.resource,
+        formatDate(a.pubDate),
+        a.link
+      ]);
+      return { headers, rows };
+    }
+
+    function copyForGoogleSheets() {
+      const { headers, rows } = buildExportRows();
+      if (rows.length === 0) { showToast('No rows available to copy'); return; }
+      const cleanCell = v => String(v || '').replace(/\t|\r?\n/g, ' ');
+      const tsv = [headers.map(cleanCell).join('\t'), ...rows.map(r => r.map(cleanCell).join('\t'))].join('\n');
+      copyTextToClipboard(tsv).then(() => {
+        showToast(`${rows.length} rows copied! Press Ctrl+V in Google Sheets.`);
+      });
+    }
+
+    function downloadCsv() {
+      const { headers, rows } = buildExportRows();
+      if (rows.length === 0) { showToast('No rows available to download'); return; }
+      const csvCell = v => '"' + String(v || '').replace(/"/g, '""') + '"';
+      const csv = '\uFEFF' + [headers.map(csvCell).join(','), ...rows.map(r => r.map(csvCell).join(','))].join('\n');
+      const slug = (state.lastQuery.category || 'news').toLowerCase().replace(/[^a-z0-9]+/g, '_');
+      downloadFile(csv, `${slug}_golden_news.csv`, 'text/csv;charset=utf-8;');
+      showToast('CSV downloaded (Google Sheets & Excel ready)');
+    }
+
+    function downloadHtmlReport() {
+      const items = getFilteredArticles();
+      if (items.length === 0) { showToast('No articles available for report'); return; }
+      const slug = (state.lastQuery.category || 'news').toLowerCase().replace(/[^a-z0-9]+/g, '_');
+      const rowsHtml = items.map((a, i) => `
+        <tr style="${a.isGolden ? 'background:#fffbeb;' : ''}">
+          <td>${i + 1}</td>
+          <td>${a.isGolden ? '<strong>GOLDEN</strong><br/>' : ''}<strong>${escapeHtml(a.region)}</strong><br/><small>${escapeHtml(a.verificationStatus)} ${a.signalScore ? '(' + a.signalScore + '/10)' : ''}</small></td>
+          <td><strong>${escapeHtml(a.source)}</strong></td>
+          <td>
+            <a href="${escapeHtml(a.link)}" target="_blank">${escapeHtml(a.title)}</a>
+            ${a.newspaperFocus ? `<p style="margin:4px 0 0;color:#1d4ed8;font-size:12px;"><strong>Focus:</strong> ${escapeHtml(a.newspaperFocus)}</p>` : ''}
+            <p style="margin:4px 0 0;color:#475569;font-size:12px;">${escapeHtml(a.summary)}</p>
+            ${a.whyItMatters ? `<p style="margin:4px 0 0;color:#047857;font-size:12px;"><strong>Why It Matters:</strong> ${escapeHtml(a.whyItMatters)}</p>` : ''}
+          </td>
+          <td>${escapeHtml(a.resource)}</td>
+          <td>${escapeHtml(formatDate(a.pubDate))}</td>
+        </tr>`).join('');
+
+      const execHtml = state.executiveBrief
+        ? `<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 14px;margin:14px 0;font-size:13px;"><strong>Executive Brief:</strong> ${escapeHtml(state.executiveBrief)}</div>`
+        : '';
+
+      const docHtml = `<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8" />
+<title>${escapeHtml(state.lastQuery.category)} - Golden News Briefing</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #0f172a; max-width: 1080px; margin: 32px auto; padding: 0 20px; line-height: 1.5; }
+  h1 { margin: 0; font-size: 24px; }
+  .meta { color: #64748b; font-size: 13px; margin: 6px 0 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { border: 1px solid #e2e8f0; padding: 10px; vertical-align: top; text-align: left; }
+  th { background: #f1f5f9; font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; }
+  a { color: #1d4ed8; font-weight: 600; text-decoration: none; }
+</style></head><body>
+  <h1>${escapeHtml(state.lastQuery.category)} — Global &amp; India Golden News Briefing</h1>
+  <div class="meta">Timeframe: ${escapeHtml(state.lastQuery.timeframeLabel)} | Items: ${items.length} | Generated: ${escapeHtml(new Date().toLocaleString('en-IN'))}</div>
+  ${execHtml}
+  <table>
+    <thead><tr><th>#</th><th>Status / Region</th><th>Newspaper</th><th>News, Focus &amp; Summary</th><th>Resource</th><th>Published</th></tr></thead>
+    <tbody>${rowsHtml}</tbody>
+  </table>
+</body></html>`;
+      downloadFile(docHtml, `${slug}_golden_news_report.html`, 'text/html;charset=utf-8;');
+      showToast('Formatted HTML Report downloaded!');
+    }
+
+    // ==================== NAVIGATION & EVENT LISTENERS ====================
+    function switchTab(tab) {
+      state.activeTab = tab;
+      const map = {
+        extractor: [el.navExtractor, el.viewExtractor],
+        sources: [el.navSources, el.viewSources],
+        how: [el.navHowItWorks, el.viewHowItWorks]
+      };
+      Object.entries(map).forEach(([k, [btn, view]]) => {
+        const active = k === tab;
+        btn.classList.toggle('tab-active', active);
+        btn.classList.toggle('tab-inactive', !active);
+        view.classList.toggle('hidden', !active);
+      });
+      if (tab === 'how') updateLiveQueryPreview();
+    }
+
+    function switchResultView(viewName) {
+      state.resultView = viewName;
+      const isTable = viewName === 'table';
+      el.btnViewTable.classList.toggle('tab-active', isTable);
+      el.btnViewTable.classList.toggle('tab-inactive', !isTable);
+      el.btnViewReport.classList.toggle('tab-active', !isTable);
+      el.btnViewReport.classList.toggle('tab-inactive', isTable);
+      el.tableViewContainer.classList.toggle('hidden', !isTable);
+      el.reportViewContainer.classList.toggle('hidden', isTable);
+    }
+
+    el.navExtractor.addEventListener('click', () => switchTab('extractor'));
+    el.navSources.addEventListener('click', () => switchTab('sources'));
+    el.navHowItWorks.addEventListener('click', () => switchTab('how'));
+
+    el.themeDarkBtn.addEventListener('click', () => applyTheme('dark'));
+    el.themeLightBtn.addEventListener('click', () => applyTheme('light'));
+    el.themeSystemBtn.addEventListener('click', () => applyTheme('system'));
+
+    el.enableAiAgent.addEventListener('change', () => {
+      el.aiConfigRow.classList.toggle('hidden', !el.enableAiAgent.checked);
+    });
+
+    el.geminiApiKeyInput.addEventListener('input', () => {
+      try { localStorage.setItem('news_agent_gemini_key', el.geminiApiKeyInput.value.trim()); } catch (e) {}
+    });
+
+    el.clearApiKeyBtn.addEventListener('click', () => {
+      el.geminiApiKeyInput.value = '';
+      try { localStorage.removeItem('news_agent_gemini_key'); } catch (e) {}
+      showToast('Saved Gemini API key cleared');
+    });
+
+    el.runAiAgentBtn.addEventListener('click', runGeminiAiAgent);
+
+    el.timeframeSelect.addEventListener('change', () => {
+      const isCustom = el.timeframeSelect.value === 'custom';
+      el.customDateRow.classList.toggle('hidden', !isCustom);
+      el.customDateRow.classList.toggle('grid', isCustom);
+      updateLiveQueryPreview();
+    });
+
+    [el.categoryInput, el.dateFrom, el.dateTo, el.regionSelect, el.contentTypeSelect, el.includeEditorials, el.geminiModelSelect].forEach(node => {
+      node.addEventListener('change', updateLiveQueryPreview);
+      node.addEventListener('input', updateLiveQueryPreview);
+    });
+
+    el.categoryInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') runExtraction();
+    });
+
+    document.querySelectorAll('.quick-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        el.categoryInput.value = btn.getAttribute('data-chip');
+        el.categoryInput.focus();
+        updateLiveQueryPreview();
+        showToast('Category filled — click Extract News when ready');
+      });
+    });
+
+    el.extractBtn.addEventListener('click', () => runExtraction(false));
+    el.retryFetchBtn.addEventListener('click', () => runExtraction(true));
+
+    el.toggleManualImportBtn.addEventListener('click', () => el.manualImportBox.classList.toggle('hidden'));
+    el.closeManualImportBtn.addEventListener('click', () => el.manualImportBox.classList.add('hidden'));
+    el.parseManualXmlBtn.addEventListener('click', () => {
+      const xml = el.manualXmlInput.value.trim();
+      if (!xml) { showToast('Please paste RSS XML first'); return; }
+      const parsed = parseRssXmlText(xml, { regionHint: 'India', typeHint: 'News', resource: 'Manual RSS XML' });
+      if (parsed.length === 0) { showToast('No valid RSS <item> entries found'); return; }
+      state.lastQuery = { category: el.categoryInput.value.trim() || 'Manual RSS Feed', timeframeLabel: 'Imported Feed', region: 'all' };
+      state.articles = deduplicateAndSort(parsed, 100);
+      populateSourceFilter();
+      el.manualImportBox.classList.add('hidden');
+      el.errorBox.classList.add('hidden');
+      el.emptyState.classList.add('hidden');
+      el.resultsSection.classList.remove('hidden');
+      renderResults();
+      showToast(`${state.articles.length} articles structured from XML!`);
+    });
+
+    el.btnViewTable.addEventListener('click', () => switchResultView('table'));
+    el.btnViewReport.addEventListener('click', () => switchResultView('report'));
+
+    el.forceRefreshBtn.addEventListener('click', () => runExtraction(true, false));
+    el.loadMoreNewsBtn.addEventListener('click', () => runExtraction(false, true));
+    el.clearDiscoveredBtn.addEventListener('click', () => { state.discoveredSources = []; try { localStorage.removeItem('news_extractor_discovered_sources'); } catch (e) {} renderSourcesDirectory(); showToast('Discovered sources cleared'); });
+    el.copySheetsBtn.addEventListener('click', copyForGoogleSheets);
+    el.downloadCsvBtn.addEventListener('click', downloadCsv);
+    el.downloadReportBtn.addEventListener('click', downloadHtmlReport);
+    el.printReportBtn.addEventListener('click', () => {
+      switchResultView('report');
+      setTimeout(() => window.print(), 150);
+    });
+
+    [el.filterQuality, el.filterRegion, el.filterLanguage, el.filterType, el.filterSource, el.filterStarred].forEach(node => {
+      node.addEventListener('change', renderResults);
+    });
+    el.filterKeyword.addEventListener('input', renderResults);
+
+    el.newsTableBody.addEventListener('click', (e) => {
+      const btn = e.target.closest('.star-btn');
+      if (!btn) return;
+      const id = btn.getAttribute('data-star-id');
+      if (state.starredIds.has(id)) state.starredIds.delete(id);
+      else state.starredIds.add(id);
+      try { localStorage.setItem('news_extractor_stars', JSON.stringify(Array.from(state.starredIds))); } catch (err) {}
+      renderResults();
+    });
+
+    [el.indiaSourcesGrid, el.hindiSourcesGrid, el.globalSourcesGrid, el.discoveredSourcesGrid].forEach(grid => {
+      grid.addEventListener('click', (e) => {
+        const card = e.target.closest('.source-card');
+        if (!card) return;
+        const domain = card.getAttribute('data-domain');
+        if (state.focusedDomains.has(domain)) state.focusedDomains.delete(domain);
+        else state.focusedDomains.add(domain);
+        renderSourcesDirectory();
+      });
+    });
+
+    el.clearFocusedPapersBtn.addEventListener('click', () => {
+      state.focusedDomains.clear();
+      renderSourcesDirectory();
+    });
+
+    el.applySourceFocusBtn.addEventListener('click', () => {
+      switchTab('extractor');
+      showToast(state.focusedDomains.size > 0
+        ? `${state.focusedDomains.size} newspapers focused for next extraction`
+        : 'All Indian & Global newspapers enabled');
+    });
+
+    // ==================== INITIALIZATION ====================
+    try {
+      const savedStars = localStorage.getItem('news_extractor_stars');
+      if (savedStars) JSON.parse(savedStars).forEach(id => state.starredIds.add(id));
+      const savedKey = localStorage.getItem('news_agent_gemini_key');
+      if (savedKey) el.geminiApiKeyInput.value = savedKey;
+      const savedDiscovered = localStorage.getItem('news_extractor_discovered_sources');
+      if (savedDiscovered) state.discoveredSources = JSON.parse(savedDiscovered);
+      const savedTheme = localStorage.getItem('news_agent_theme');
+      if (savedTheme) state.themeMode = savedTheme;
+    } catch (e) {}
+
+    applyTheme(state.themeMode);
+    initDefaultCustomDates();
+    renderSourcesDirectory();
+    updateLiveQueryPreview();
+    if (window.lucide) lucide.createIcons();
+  </script>
+</body>
+</html>
